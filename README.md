@@ -11,7 +11,6 @@ Može se testirati povezivanjem na navedeni server :
 Podaci servera : 
 Server: sql7.freemysqlhosting.net
 DatabaseName: sql7247390
-Name: sql7247390
 Username: sql7247390
 Password: K2meaRTqkz
 Port number: 3306
