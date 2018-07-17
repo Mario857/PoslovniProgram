@@ -90,7 +90,7 @@ namespace Poslovni
             dt.Columns.Add("nab_vrijednost");
             dt.Columns.Add("MP_vrijednost");
             dt.Columns.Add("zav_troskovi");
-
+ 
             DataRow dr = dt.NewRow();
 
 
