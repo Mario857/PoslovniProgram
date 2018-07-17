@@ -1,0 +1,308 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3A1F712A-8BFA-4BB0-B861-F14AC6C54C3C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Poslovni</RootNamespace>
+    <AssemblyName>Poslovni</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutocompleteMenu, Version=1.3.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Desktop\AutocompleteMenu.dll</HintPath>
+    </Reference>
+    <Reference Include="ClosedXML, Version=0.90.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\S USBA\VacomServisi 1.0\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Office\root\Office16\ADDINS\PowerPivot Excel Add-in\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Windows\assembly\GAC_MSIL\Microsoft.ReportViewer.Common\12.0.0.0__89845dcd8080cc91\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Windows\assembly\GAC_MSIL\Microsoft.ReportViewer.DataVisualization\12.0.0.0__89845dcd8080cc91\Microsoft.ReportViewer.DataVisualization.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Windows\assembly\GAC_MSIL\Microsoft.ReportViewer.WebForms\12.0.0.0__89845dcd8080cc91\Microsoft.ReportViewer.WebForms.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Windows\assembly\GAC_MSIL\Microsoft.ReportViewer.WinForms\12.0.0.0__89845dcd8080cc91\Microsoft.ReportViewer.WinForms.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Core.1.1.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.10.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Desktop\v4.5.2\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.10.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Desktop\v4.5.2\MySql.Data.Entity.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="MySQL.Data.EntityFrameworkCore, Version=6.10.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Desktop\v4.5.2\MySQL.Data.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+    <Reference Include="MySQL.Data.EntityFrameworkCore.Design, Version=6.10.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Desktop\v4.5.2\MySQL.Data.EntityFrameworkCore.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Web, Version=6.10.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Desktop\v4.5.2\MySql.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Izmjene\Kalkulacije_1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\Izmjene\Kalkulacije_1.Designer.cs">
+      <DependentUpon>Kalkulacije_1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Glavni.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Glavni.Designer.cs">
+      <DependentUpon>Glavni.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Klase\Artikl.cs" />
+    <Compile Include="Klase\ArtikliAtributi.cs" />
+    <Compile Include="Klase\ArtikliOsnovno.cs" />
+    <Compile Include="Klase\CSharpInDepth.cs" />
+    <Compile Include="Klase\DGVPrinter.cs" />
+    <Compile Include="Klase\Korisnici.cs" />
+    <Compile Include="Klase\MYSQLTableBuilder.cs" />
+    <Compile Include="Klase\Partneri.cs" />
+    <Compile Include="Klase\PrinterNaljepnica.cs" />
+    <Compile Include="Klase\RacuniStavke.cs" />
+    <Compile Include="Klase\Racuni_zaglavlje.cs" />
+    <Compile Include="Klase\ReportEngine.cs" />
+    <Compile Include="Korisnici.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Korisnici.Designer.cs">
+      <DependentUpon>Korisnici.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KUF.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KUF.Designer.cs">
+      <DependentUpon>KUF.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Maloprodaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Maloprodaja.Designer.cs">
+      <DependentUpon>Maloprodaja.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PregledArtikla.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PregledArtikla.Designer.cs">
+      <DependentUpon>PregledArtikla.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PregledProdaje.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PregledProdaje.Designer.cs">
+      <DependentUpon>PregledProdaje.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PregledSkladista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PregledSkladista.Designer.cs">
+      <DependentUpon>PregledSkladista.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Primka_zaglavlje.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Klase\SinkronizacijaSkladišta.cs" />
+    <Compile Include="ServerPodaci.cs" />
+    <Compile Include="SviUlaziReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SviUlaziReport.Designer.cs">
+      <DependentUpon>SviUlaziReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UnosArtikla.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UnosArtikla.Designer.cs">
+      <DependentUpon>UnosArtikla.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UnosPartnera.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UnosPartnera.Designer.cs">
+      <DependentUpon>UnosPartnera.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="..\Izmjene\Kalkulacije_1.resx">
+      <DependentUpon>Kalkulacije_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Glavni.resx">
+      <DependentUpon>Glavni.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Korisnici.resx">
+      <DependentUpon>Korisnici.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KUF.resx">
+      <DependentUpon>KUF.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Maloprodaja.resx">
+      <DependentUpon>Maloprodaja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PregledArtikla.resx">
+      <DependentUpon>PregledArtikla.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PregledProdaje.resx">
+      <DependentUpon>PregledProdaje.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PregledSkladista.resx">
+      <DependentUpon>PregledSkladista.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="SviUlaziReport.resx">
+      <DependentUpon>SviUlaziReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UnosArtikla.resx">
+      <DependentUpon>UnosArtikla.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UnosPartnera.resx">
+      <DependentUpon>UnosPartnera.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AutocompleteMenu.dll" />
+    <Content Include="ikone\if_bullet-green_84433.png" />
+    <Content Include="ikone\if_bullet-red_84435.png" />
+    <None Include="Resources\printer.png" />
+    <None Include="Resources\teamwork.png" />
+    <None Include="Resources\money-bag.png" />
+    <None Include="Resources\worker.png" />
+    <None Include="Resources\analysis.png" />
+    <None Include="Resources\agreement.png" />
+    <None Include="Resources\Delete.png" />
+    <None Include="Resources\if_new-file_85332.png" />
+    <None Include="Resources\if_address_book_44733 %281%29.png" />
+    <None Include="Resources\if_Note_Book_86977.png" />
+    <None Include="Resources\if_book_1731631.png" />
+    <None Include="Resources\if_book_173163.png" />
+    <None Include="Resources\if_save_accept_84872.png" />
+    <None Include="Resources\if_save_84879.png" />
+    <None Include="Resources\if_bullet-red_84435.png" />
+    <None Include="Resources\if_bullet-green_84433.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
