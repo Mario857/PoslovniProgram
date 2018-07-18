@@ -11,7 +11,7 @@ namespace Poslovni
 {
     public struct Artikl
     {
-        public int sifra;
+        public long sifra;
         public string naziv; 
         public int kolicina;
         public int poreza_grupa;
