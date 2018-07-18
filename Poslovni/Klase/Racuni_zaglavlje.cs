@@ -15,9 +15,6 @@ namespace Poslovni.Klase
         public bool aktivan { get; set; }
         public string datum_racuna { get; set; }
         public string vrijeme { get; set; }
-
-        public decimal prodano_mpc { get; set; }
-        public decimal pdv_ukupno { get; set; }
     }
     public struct Racun_stavka {
         public int index_stavke { get; set; }
@@ -87,6 +84,10 @@ namespace Poslovni.Klase
         public void AddRacun()
         {
             Sinkroniziraj();
+            Racun zadnji_racun = new Racun();
+            zadnji_racun = GetRacuni()[Count() - 1];
+
+           
                 using (MySqlConnection mysql = new MySqlConnection(Login.constring))
                 {
                     mysql.Open();

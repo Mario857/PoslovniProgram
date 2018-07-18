@@ -47,6 +47,17 @@ namespace Poslovni
             SikronizirajListuRacuna(dateTimePicker1.Value.ToString("dd.M.yyyy"));
             PostaviImenaKorsinika();
 
+
+
+            autocompleteMenu1.MaximumSize = new System.Drawing.Size(250, 200); 
+            
+            var columnWidth = new int[] { 50, 200 };
+
+            autocompleteMenu1.AddItem(new MulticolumnAutocompleteItem(new[] { "001",  "Mr. Adam Smith" }, "Adam Smith") { ColumnWidth = columnWidth, ImageIndex = 0 });
+            autocompleteMenu1.AddItem(new MulticolumnAutocompleteItem(new[] { "002", "Ms. Eva Smith" }, "Eva Smith") { ColumnWidth = columnWidth, ImageIndex = 1 });
+            autocompleteMenu1.AddItem(new MulticolumnAutocompleteItem(new[] { "007", " Mr. Bond, James Bond" }, "James Bond") { ColumnWidth = columnWidth, ImageIndex = 0 });
+            autocompleteMenu1.AddItem(new MulticolumnAutocompleteItem(new[] { "666", "Mr. Sam, Serios Sam" }, "Serios Sam") { ColumnWidth = columnWidth, ImageIndex = 0 });
+
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
@@ -74,7 +85,6 @@ namespace Poslovni
             PostaviRacunaAsync(listBox1.Items[listBox1.SelectedIndex].ToString(), "");
             PostaviDizajn();
             ReindeksirajStavke();
-            RacunajIznosRacuna();
         }
         private void PostaviDizajn() {
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -82,7 +92,6 @@ namespace Poslovni
 
             dataGridView1.Columns["index_stavke"].HeaderText = "RB";
             dataGridView1.Columns["sifra"].HeaderText = "Šifra artikla";
-            dataGridView1.Columns["sifra"].ValueType = typeof(long);
             dataGridView1.Columns["naziv"].HeaderText = "Naziv artikla";
             dataGridView1.Columns["MPC_popust"].HeaderText = "Popust";
             dataGridView1.Columns["MPC_Prodano"].HeaderText = "MPC";
@@ -275,8 +284,6 @@ namespace Poslovni
             ReindeksirajStavke();
             if (!RowContainsEmptyValues(dataGridView1, e.RowIndex))
                  SikronizirajStavkeRacuna();
-
-            RacunajIznosRacuna();
         }
 
         private bool RowContainsEmptyValues(DataGridView dataGridViewx,int rowindex) {
@@ -296,7 +303,7 @@ namespace Poslovni
         {
             // Check if Enter is pressed
 
-            if (keyData == Keys.Enter && dataGridView1.IsCurrentCellInEditMode == false)
+            if (keyData == Keys.Enter)
             {
 
                 // If there isn't any selected row, do nothing
@@ -392,14 +399,13 @@ namespace Poslovni
                    
                     for (int i = 0; i < dataGridView1.Rows.Count; i++)
                     {
+  
 
-                        try
+                        if (Convert.ToInt32(dataGridView1.Rows[i].Cells["sifra"].Value) != 0)
                         {
-                            if (Convert.ToInt32(dataGridView1.Rows[i].Cells["sifra"].Value) != 0)
-                            {
 
 
-                                dt.Rows.Add(new String[] {
+                            dt.Rows.Add(new String[] {
                                     listBox1.SelectedItem.ToString() ,
                                     dataGridView1.Rows[i].Cells["sifra"].Value.ToString(),
                                     dataGridView1.Rows[i].Cells["naziv"].Value.ToString(),
@@ -413,13 +419,11 @@ namespace Poslovni
                                 });
 
 
-                            }
+                        }
 
 
-                            mySqlDataAdapter.Update(dt); //Updating the values but I only want to update if not the same
-                        }
-                        catch { };
-                        }
+                        mySqlDataAdapter.Update(dt); //Updating the values but I only want to update if not the same
+                    }
                 }
             }
 
@@ -429,32 +433,11 @@ namespace Poslovni
         {
             ReindeksirajStavke();
             SikronizirajStavkeRacuna();
-            RacunajIznosRacuna();
         }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
-        }
-
-        private void RacunajIznosRacuna() {
-            decimal ukupno = 0;
-            try
-            {
-                for (int i = 0; i < dataGridView1.Rows.Count; i++)
-                {
-                    if (dataGridView1.Rows[i].Cells["MPC_Prodano"].Value != null && dataGridView1.Rows[i].Cells["kolicina"].Value != null)
-                    {
-                        ukupno += (Convert.ToDecimal(dataGridView1.Rows[i].Cells["kolicina"].Value.ToString()) * Convert.ToDecimal(dataGridView1.Rows[i].Cells["MPC_Prodano"].Value.ToString()));
-                    }
-
-                }
-            }
-            catch {
-                ukupno = 0.00M;
-            }
-
-            label1.Text = ukupno + " Kn";
         }
     }
 }

@@ -56,41 +56,34 @@ namespace Poslovni
         }
 
 
-        #region Racunanje podnozja pdv
+        #region Racunanje podnozja pdv,osnovica treba jos nesto popraviti ovdje kod pdva ako je kolicina 0 
 
         private void RačunajPodnozje()
         {
-            int dijeli = 0;
+
             try
             {
                 osnovica = 0;
                 pdv = 0;
                 pdv_prosjek = 0;
                 ukupno = 0;
-           
+                for (int i = 0; i < dataGridView1.RowCount; i++)
+                    osnovica += Convert.ToSingle(dataGridView1.Rows[i].Cells["vrijednost"].Value);
 
                 for (int i = 0; i < dataGridView1.RowCount; i++)
-                {
-                    if (Convert.ToSingle(dataGridView1.Rows[i].Cells["kolicina"].Value) != 0)
-                    {
-                        osnovica += Convert.ToSingle(dataGridView1.Rows[i].Cells["vrijednost"].Value);
-                        pdv_prosjek += Convert.ToSingle(dataGridView1.Rows[i].Cells["pdv"].Value);
+                    pdv_prosjek += Convert.ToSingle(dataGridView1.Rows[i].Cells["pdv"].Value);
 
-                        dijeli++;
-                    }
-                }
+                pdv_prosjek /= dataGridView1.RowCount - 1;
+
                 textBox3.Text = osnovica.ToString();
 
             }
             catch { };
-            pdv_prosjek /= dijeli;
-
             pdv = osnovica * (pdv_prosjek / 100);
             textBox4.Text = pdv.ToString();
 
             ukupno = pdv + osnovica;
             textBox5.Text = ukupno.ToString();
-
 
 
             DataTable dt = new DataTable();
@@ -1652,10 +1645,10 @@ namespace Poslovni
             {
                 for (int j = 0; j < Convert.ToInt32(dataGridView3.Rows[i].Cells["ZA_ISPIS"].Value); j++) {
                     if ((na_poziciju % 2) == 0)
-                        artikli_za_ispis.Add(new Artikl { naziv = dataGridView3.Rows[i].Cells["NazivArtikla"].Value.ToString(), sifra = Convert.ToInt64( dataGridView3.Rows[i].Cells["id_artikl"].Value), MPC = Convert.ToSingle(dataGridView3.Rows[i].Cells["MPC"].Value), ispisna_pozicija = new Point(0, na_poziciju * 100) });
+                        artikli_za_ispis.Add(new Artikl { naziv = dataGridView3.Rows[i].Cells["NazivArtikla"].Value.ToString(), sifra = Convert.ToInt32( dataGridView3.Rows[i].Cells["id_artikl"].Value), MPC = Convert.ToSingle(dataGridView3.Rows[i].Cells["MPC"].Value), ispisna_pozicija = new Point(0, na_poziciju * 100) });
 
                     else if  ((na_poziciju % 2) == 1)
-                        artikli_za_ispis.Add(new Artikl { naziv = dataGridView3.Rows[i].Cells["NazivArtikla"].Value.ToString(), sifra = Convert.ToInt64(dataGridView3.Rows[i].Cells["id_artikl"].Value), MPC = Convert.ToSingle(dataGridView3.Rows[i].Cells["MPC"].Value), ispisna_pozicija = new Point(320, (na_poziciju - 1) * 100) });
+                        artikli_za_ispis.Add(new Artikl { naziv = dataGridView3.Rows[i].Cells["NazivArtikla"].Value.ToString(), sifra = Convert.ToInt32(dataGridView3.Rows[i].Cells["id_artikl"].Value), MPC = Convert.ToSingle(dataGridView3.Rows[i].Cells["MPC"].Value), ispisna_pozicija = new Point(320, (na_poziciju - 1) * 100) });
 
                     na_poziciju++;
                 }
