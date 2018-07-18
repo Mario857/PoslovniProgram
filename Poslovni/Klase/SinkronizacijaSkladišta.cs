@@ -371,11 +371,11 @@ namespace Poslovni
             catch { };
             return dataTable;
         }
-        private List<Artikl> UkupnoUneseniArtikli(int sifra)
+        private List<Artikl> UkupnoUneseniArtikli(long sifra)
         {
             return _uneseni_aktivni_artikli.Where(n => n.sifra == sifra).ToList();
         }
-        public DataTable UlazuTablicu(int sifra)
+        public DataTable UlazuTablicu(long sifra)
         {
             DataTable dt = new DataTable();
             Artikl temop = new Artikl();
@@ -402,7 +402,7 @@ namespace Poslovni
 
 
         }
-        public Artikl Izracunaj_ulaz(int sifra)
+        public Artikl Izracunaj_ulaz(long sifra)
         {
             Artikl art = new Artikl();
             int j = 0;
