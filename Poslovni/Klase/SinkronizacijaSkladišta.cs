@@ -170,6 +170,9 @@ namespace Poslovni
                 {
                     MYSQLTableBuilder.CreateStanjeSkladista();
 
+
+                   
+
                     for (int i = 0; i < _uneseni_aktivni_artikli_sifra_zbirno.Count; i++)
                     {
                         try
@@ -404,51 +407,63 @@ namespace Poslovni
         }
         public Artikl Izracunaj_ulaz(long sifra)
         {
+
+
+
             Artikl art = new Artikl();
             int j = 0;
-            for (int i = 0; i < UkupnoUneseniArtikli(sifra).Count; i++)
-            {
-
+    
+            foreach (Artikl uneseni_art in UkupnoUneseniArtikli(sifra)) {
                 try
                 {
-                    if (UkupnoUneseniArtikli(sifra)[i].sifra == sifra)
-                    {
+                    if (uneseni_art.sifra == sifra) {
+                        if (uneseni_art.nab_cijena != 0) {
 
-                        if (UkupnoUneseniArtikli(sifra)[i].nab_cijena != 0)
-                        {
-                            j++;
-                            art.sifra = UkupnoUneseniArtikli(sifra)[i].sifra;
-                            art.naziv = UkupnoUneseniArtikli(sifra)[i].naziv;
-                            art.dobavljac = UkupnoUneseniArtikli(sifra)[i].dobavljac;
-                            art.nab_cijena += Math.Abs(UkupnoUneseniArtikli(sifra)[i].nab_cijena);
-                          
 
-                            art.MPC = UkupnoUneseniArtikli(sifra)[i].MPC;
-                            art.popust = UkupnoUneseniArtikli(sifra)[i].popust;
+                            art.nab_cijena += uneseni_art.nab_cijena;
+                            art.sifra = uneseni_art.sifra;
+                            art.naziv = uneseni_art.naziv;
+                            art.dobavljac = uneseni_art.dobavljac;
+                            art.MPC = uneseni_art.MPC;
+                            art.popust = uneseni_art.popust;
 
-                            art.vrsta = UkupnoUneseniArtikli(sifra)[i].vrsta;
-                            art.podgrupa = UkupnoUneseniArtikli(sifra)[i].podgrupa;
-                            art.opis_artikla = UkupnoUneseniArtikli(sifra)[i].opis_artikla;
-                            art.robna_marka = UkupnoUneseniArtikli(sifra)[i].robna_marka;
-                            art.kolicina += UkupnoUneseniArtikli(sifra)[i].kolicina;
-                          
+                            art.vrsta = uneseni_art.vrsta;
+                            art.podgrupa = uneseni_art.podgrupa;
+                            art.opis_artikla = uneseni_art.opis_artikla;
+                            art.robna_marka = uneseni_art.robna_marka;
+                            art.kolicina += uneseni_art.kolicina;
+
+
+
+                            if (art.kolicina == 0)
+                            {
+                                art.nab_cijena = 0;
+                                j = -1;
+                            }
+                            
+                                j++;
+                            
+
                         }
-                        else if (UkupnoUneseniArtikli(sifra)[i].nab_cijena == 0)
+                        else if (uneseni_art.nab_cijena == 0)
                         {
-                            art.MPC = UkupnoUneseniArtikli(sifra)[i].MPC;
-                            art.popust = UkupnoUneseniArtikli(sifra)[i].popust;
+                            art.MPC = uneseni_art.MPC;
+                            art.popust = uneseni_art.popust;
                         }
-                        
                     }
 
                 }
                 catch { };
+
             }
-           
             art.nab_cijena /= j;
-            art.min_mpc = art.nab_cijena * 1.25f;
+            var pdv_artikla = ArtikliOsnovno.GetStopaFromSifra(sifra);
+             art.min_mpc = art.nab_cijena * (1 + ((float)pdv_artikla / 100));
+            
             return art;
         }
+
+      
         private void PostaviUnesenoAktivneArtikleZbirno()
         {
             _uneseni_aktivni_artikli_sifra_zbirno = new List<int>();

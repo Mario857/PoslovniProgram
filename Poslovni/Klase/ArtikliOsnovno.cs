@@ -59,7 +59,7 @@ namespace Poslovni.Klase
           
         }
 
-        public static int GetStopaFromSifra(int sifra)
+        public static int GetStopaFromSifra(long sifra)
         {
             using (MySqlConnection sqlcon = new MySqlConnection(Login.constring))
             {
@@ -78,7 +78,7 @@ namespace Poslovni.Klase
                 {
                     i = Convert.ToInt32(dt.Rows[0][0].ToString());
                 }
-                catch { };
+                catch{};
 
 
                 string query2 = "SELECT * FROM stopa_poreza WHERE id_porez = " + i;
@@ -87,8 +87,8 @@ namespace Poslovni.Klase
 
                 mySqlDataAdapter2.Fill(ds2);
                 DataTable dt2 = ds2.Tables[0];
-
-                return Convert.ToInt32(dt2.Rows[0]["iznos_stope"].ToString());
+                var value = Convert.ToInt32(dt2.Rows[0]["iznos_stope"].ToString());
+                return value;
             }
         }
     }

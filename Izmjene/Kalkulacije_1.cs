@@ -56,7 +56,13 @@ namespace Poslovni
         }
 
 
-        #region Racunanje podnozja pdv
+        #region Racunanje podnozja 
+
+
+
+
+
+
 
         private void RačunajPodnozje()
         {
@@ -684,7 +690,7 @@ namespace Poslovni
 
                 dataGridView1.Rows[e.RowIndex].Cells[1].Value = Klase.ArtikliOsnovno.GetUneseniArtikli(Klase.ArtikliOsnovno.Zahtjev.sifra)[setindextomylist(dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString(), Klase.ArtikliOsnovno.GetUneseniArtikli(Klase.ArtikliOsnovno.Zahtjev.naziv))];
                 dataGridView1.Rows[e.RowIndex].Cells[4].Value = Klase.ArtikliOsnovno.GetUneseniArtikli(Klase.ArtikliOsnovno.Zahtjev.grupa)[setindextomylist(dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString(), Klase.ArtikliOsnovno.GetUneseniArtikli(Klase.ArtikliOsnovno.Zahtjev.naziv))];
-                dataGridView1.Rows[e.RowIndex].Cells[5].Value = Klase.ArtikliOsnovno.GetStopaFromSifra(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[1].Value));
+                dataGridView1.Rows[e.RowIndex].Cells[5].Value = Klase.ArtikliOsnovno.GetStopaFromSifra(Convert.ToInt64(dataGridView1.Rows[e.RowIndex].Cells[1].Value));
                 dataGridView1.Rows[e.RowIndex].Cells[6].Value = "kom";
 
 
