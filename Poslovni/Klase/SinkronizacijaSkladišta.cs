@@ -211,7 +211,7 @@ namespace Poslovni
 
 
                         Artikl prividni_artikl = new Artikl();
-                        prividni_artikl = Izracunaj_ulaz(AktivnaKalSifreArtikla()[i]);
+                        prividni_artikl = Izracunaj_ulaz(AktivnaKalSifreArtikla()[i]); // Dodati ako nema na stanju racuna od trenutne kalkulacije kasnije nije presudno
 
                         if (prividni_artikl.sifra != 0)
                         {
@@ -219,7 +219,7 @@ namespace Poslovni
                             using (MySqlConnection mysqlc = new MySqlConnection(Login.constring))
                             {
                                 mysqlc.Open();
-                                String query2 = "INSERT INTO stanje_skladista (sifra,naziv,stanje,MPC,MPC_Popust,vrsta,podgrupa,osobine_artikla,min_MPC,dobavljac) VALUES ('" + prividni_artikl.sifra + "','" + prividni_artikl.naziv + "','" + prividni_artikl.kolicina + "','" + prividni_artikl.MPC + "','" + prividni_artikl.popust + "','" + prividni_artikl.vrsta + "','" + prividni_artikl.podgrupa + "','" + prividni_artikl.osobine_artikla + "','" + 0 + "','" + prividni_artikl.dobavljac + "') ON DUPLICATE KEY UPDATE stanje='" + prividni_artikl.kolicina + "',MPC = '" + prividni_artikl.MPC + "' ,MPC_Popust = '" + prividni_artikl.popust + "', vrsta='" + prividni_artikl.vrsta + "',  podgrupa = '" + prividni_artikl.podgrupa + "',osobine_artikla='" + prividni_artikl.osobine_artikla + "', min_MPC='" + prividni_artikl.min_mpc + "', dobavljac='" + prividni_artikl.dobavljac + "';";
+                                String query2 = "INSERT INTO stanje_skladista (sifra,naziv,stanje,MPC,MPC_Popust,vrsta,podgrupa,osobine_artikla,min_MPC,dobavljac) VALUES ('" + prividni_artikl.sifra + "','" + prividni_artikl.naziv + "','" + prividni_artikl.kolicina + "','" + prividni_artikl.MPC + "','" + prividni_artikl.popust + "','" + prividni_artikl.vrsta + "','" + prividni_artikl.podgrupa + "','" + prividni_artikl.osobine_artikla + "','" + prividni_artikl.min_mpc + "','" + prividni_artikl.dobavljac + "') ON DUPLICATE KEY UPDATE stanje='" + prividni_artikl.kolicina + "',MPC = '" + prividni_artikl.MPC + "' ,MPC_Popust = '" + prividni_artikl.popust + "', vrsta='" + prividni_artikl.vrsta + "',  podgrupa = '" + prividni_artikl.podgrupa + "',osobine_artikla='" + prividni_artikl.osobine_artikla + "', min_MPC='" + prividni_artikl.min_mpc + "', dobavljac='" + prividni_artikl.dobavljac + "';";
 
 
 
@@ -406,7 +406,7 @@ namespace Poslovni
         {
             Artikl art = new Artikl();
             int j = 0;
-            for (int i = 0; i <= UkupnoUneseniArtikli(sifra).Count; i++)
+            for (int i = 0; i < UkupnoUneseniArtikli(sifra).Count; i++)
             {
 
                 try
@@ -421,6 +421,7 @@ namespace Poslovni
                             art.naziv = UkupnoUneseniArtikli(sifra)[i].naziv;
                             art.dobavljac = UkupnoUneseniArtikli(sifra)[i].dobavljac;
                             art.nab_cijena += Math.Abs(UkupnoUneseniArtikli(sifra)[i].nab_cijena);
+                          
 
                             art.MPC = UkupnoUneseniArtikli(sifra)[i].MPC;
                             art.popust = UkupnoUneseniArtikli(sifra)[i].popust;
@@ -430,21 +431,22 @@ namespace Poslovni
                             art.opis_artikla = UkupnoUneseniArtikli(sifra)[i].opis_artikla;
                             art.robna_marka = UkupnoUneseniArtikli(sifra)[i].robna_marka;
                             art.kolicina += UkupnoUneseniArtikli(sifra)[i].kolicina;
-
+                          
                         }
                         else if (UkupnoUneseniArtikli(sifra)[i].nab_cijena == 0)
                         {
                             art.MPC = UkupnoUneseniArtikli(sifra)[i].MPC;
                             art.popust = UkupnoUneseniArtikli(sifra)[i].popust;
                         }
-
+                        
                     }
 
                 }
                 catch { };
             }
-
+           
             art.nab_cijena /= j;
+            art.min_mpc = art.nab_cijena * 1.25f;
             return art;
         }
         private void PostaviUnesenoAktivneArtikleZbirno()

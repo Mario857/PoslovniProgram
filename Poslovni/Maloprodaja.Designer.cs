@@ -138,6 +138,7 @@
             this.izbrisiTekućiToolStripMenuItem.Name = "izbrisiTekućiToolStripMenuItem";
             this.izbrisiTekućiToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.izbrisiTekućiToolStripMenuItem.Text = "Izbrisi tekući";
+            this.izbrisiTekućiToolStripMenuItem.Click += new System.EventHandler(this.izbrisiTekućiToolStripMenuItem_Click);
             // 
             // pregledFinancijaToolStripMenuItem
             // 

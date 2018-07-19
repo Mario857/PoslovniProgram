@@ -52,6 +52,13 @@ namespace Poslovni
             if (dobavljac != "" && dob_enb) {
                 sb.Append(" AND dobavljac = '" + dobavljac + "' ");
             }
+            if (aktivni == true)
+            {
+                sb.Append(" OR stanje <= '" + 0 + "' ");
+            }
+            else {
+                sb.Append(" AND stanje > '" + 0 + "' ");
+            }
 
             
             return sb.ToString();
@@ -65,7 +72,7 @@ namespace Poslovni
                     mysql.Open();
 
                     //string query = "SELECT * FROM stanje_skladista WHERE "+comboBox1.Text+" LIKE '%"+pretrazi+"%'" ;
-                    var query = QueryBuilder(pretrazi, comboBox1.Text,textBox4.Text, textBox4.Enabled, textBox2.Text,textBox2.Enabled,textBox6.Text,textBox6.Enabled,textBox3.Text,textBox3.Enabled,textBox7.Text,textBox7.Enabled);
+                    var query = QueryBuilder(pretrazi, comboBox1.Text,textBox4.Text, textBox4.Enabled, textBox2.Text,textBox2.Enabled,textBox6.Text,textBox6.Enabled,textBox3.Text,textBox3.Enabled,textBox7.Text,textBox7.Enabled,checkBox6.Checked);
                    
 
                     MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(query, mysql);
@@ -80,9 +87,10 @@ namespace Poslovni
             textBox2.Enabled = false;
             textBox3.Enabled = false;
             textBox4.Enabled = false;
-            textBox5.Enabled = false;
+
             textBox6.Enabled = false;
             textBox7.Enabled = false;
+
             comboBox1.SelectedItem = "naziv";
         }
 
@@ -297,5 +305,6 @@ namespace Poslovni
         {
             Pretraga(textBox1.Text);
         }
+
     }
 }

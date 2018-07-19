@@ -347,13 +347,20 @@ namespace Poslovni
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            // MessageBox.Show(Klase.CSharpInDepth.LetsTryLambda("123").ToString());
-            MessageBox.Show(Klase.CSharpInDepth.LetsTryExpressionTrees2().ToString());
+            foreach (Form f in Application.OpenForms)
+            {
+                if (f is ZakljuciRacun)
+                {
+                    f.Focus();
+                    return;
+                }
+            }
+            new ZakljuciRacun().Show();
         }
 
         private void NoviRacunToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           
+            Button1_Click("", EventArgs.Empty);
         }
         private bool ProvjeriAktivnostRacuna(int id) {
             return true; // WILL BE IMPLIMENTED SOON
@@ -369,7 +376,7 @@ namespace Poslovni
                     sqlconn.Open();
                     string referenca_na_godinu = ""; // TO BE CHANGED LATER
 
-                    string query = "DELETE FROM racuni_stavke" + referenca_na_godinu + " WHERE id_racun = " + Convert.ToInt32(listBox1.SelectedItem);
+                    string query = "DELETE  FROM racuni_stavke" + referenca_na_godinu + " WHERE id_racun = " + Convert.ToInt32(listBox1.SelectedItem);
 
                     MySqlCommand mySqlCommand = new MySqlCommand(query, sqlconn);
                     mySqlCommand.ExecuteNonQuery();
@@ -397,15 +404,17 @@ namespace Poslovni
                         {
                             if (Convert.ToInt32(dataGridView1.Rows[i].Cells["sifra"].Value) != 0)
                             {
+                                Artikl art = new Artikl();
+                                StanjeSkladista.TryGetValue(dataGridView1.Rows[i].Cells["sifra"].Value.ToString(), out art);
 
-
+                                
                                 dt.Rows.Add(new String[] {
                                     listBox1.SelectedItem.ToString() ,
                                     dataGridView1.Rows[i].Cells["sifra"].Value.ToString(),
                                     dataGridView1.Rows[i].Cells["naziv"].Value.ToString(),
                                     dataGridView1.Rows[i].Cells["kolicina"].Value.ToString(),
-                                    "0",
-                                    "0",
+                                    art.min_mpc.ToString(),
+                                    art.MPC.ToString(),
                                     dataGridView1.Rows[i].Cells["MPC_Popust"].Value.ToString(),
                                     dataGridView1.Rows[i].Cells["MPC_Prodano"].Value.ToString(),
 
@@ -455,6 +464,23 @@ namespace Poslovni
             }
 
             label1.Text = ukupno + " Kn";
+        }
+
+        private void izbrisiTekućiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int? brojItemaUracunu = listBox1.Items.Count - 1;
+
+            if (brojItemaUracunu.HasValue && dateTimePicker1.Value.Date == DateTime.UtcNow.Date)
+            {
+                if ((listBox1.SelectedIndex == brojItemaUracunu)) // Dodati provjeru aktivnosti
+                {
+                    MessageBox.Show("Brisi");
+                }
+                else
+                {
+                    MessageBox.Show("Nije moguce brisanje");
+                }
+            }  
         }
     }
 }

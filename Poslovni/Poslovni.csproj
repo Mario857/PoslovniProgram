@@ -206,6 +206,12 @@
     <Compile Include="UnosPartnera.Designer.cs">
       <DependentUpon>UnosPartnera.cs</DependentUpon>
     </Compile>
+    <Compile Include="ZakljuciRacun.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ZakljuciRacun.Designer.cs">
+      <DependentUpon>ZakljuciRacun.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="..\Izmjene\Kalkulacije_1.resx">
       <DependentUpon>Kalkulacije_1.cs</DependentUpon>
     </EmbeddedResource>
@@ -253,6 +259,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UnosPartnera.resx">
       <DependentUpon>UnosPartnera.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ZakljuciRacun.resx">
+      <DependentUpon>ZakljuciRacun.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
