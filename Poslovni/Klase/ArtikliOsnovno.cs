@@ -14,7 +14,8 @@ namespace Poslovni.Klase
             sifra = 0,
             naziv = 1,
             grupa = 2,
-            porez = 3
+            porez = 3,
+            opis_artikla = 4,
         }
 
         public static List<String> GetUneseniArtikli(Zahtjev zahtjev)
@@ -33,7 +34,14 @@ namespace Poslovni.Klase
 
                 while (mySqlDataReader.Read())
                 {
-                    artikl.Add(new Artikl {sifra = mySqlDataReader.GetInt32("sifra") , naziv = mySqlDataReader.GetString("naziv"),vrsta = mySqlDataReader.GetString("vrsta"), poreza_grupa=mySqlDataReader.GetInt32("porezna_grupa")  });
+                    string opis_Artikla = "";
+                    if (!mySqlDataReader.IsDBNull(8))
+                    {
+                        opis_Artikla = mySqlDataReader.GetString("opis_artikla");
+                    }
+                    
+
+                    artikl.Add(new Artikl {sifra = mySqlDataReader.GetInt32("sifra") , naziv = mySqlDataReader.GetString("naziv"),vrsta = mySqlDataReader.GetString("vrsta"), poreza_grupa=mySqlDataReader.GetInt32("porezna_grupa"), opis_artikla = opis_Artikla });
                 }
                 switch (zahtjev)
                 {
@@ -49,6 +57,9 @@ namespace Poslovni.Klase
                         break;
                     case Zahtjev.porez:
                         genericlist = artikl.Select(x => x.poreza_grupa.ToString()).ToList();
+                        break;
+                    case Zahtjev.opis_artikla:
+                        genericlist = artikl.Select(x => x.opis_artikla.ToString()).ToList();
                         break;
                     default:
 

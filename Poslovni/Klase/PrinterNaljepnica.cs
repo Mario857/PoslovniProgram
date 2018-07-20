@@ -86,7 +86,7 @@ namespace Poslovni.Klase
             return stringBuilder.ToString();
         }
         private static string StilZaglavlje() {
-            return "<html xmlns='http://www.w3.org/1999/xhtml'> <head> <title>HTML EAN13 Barcode</title> <script type='text/javascript' src='js/connectcode-javascript-ean13.js'></script> <style type='text/css'> #barcode {font-weight: normal; font-style: normal; line-height:normal; sans-serif; font-size: 12pt} </style> </head> <body>";
+            return "<html xmlns='http://www.w3.org/1999/xhtml'> <head> <title>ISPIS NALJEPNICA</title> <script type='text/javascript' src='js/connectcode-javascript-ean13.js'></script> <style type='text/css'> #barcode {font-weight: normal; font-style: normal; line-height:normal; sans-serif; font-size: 12pt} </style> </head> <body>";
         }
 
         public static void KreirajTestno(UbaciElem ubaciElem, UbaciElemSkripte elemSkripte) {

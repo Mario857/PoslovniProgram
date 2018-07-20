@@ -82,6 +82,7 @@ namespace Poslovni
                 }
             }
             catch { };
+            IzracunajPodnozje();
         }
         private void OnemoguciTextBoxove() {
             textBox2.Enabled = false;
@@ -228,12 +229,7 @@ namespace Poslovni
         private void button1_Click(object sender, EventArgs e)
         {
             Pretraga(textBox1.Text);
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-           
-
+            
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -295,16 +291,46 @@ namespace Poslovni
             Pretraga(textBox1.Text);
         }
 
-        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-          
-   
-        }
+  
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             Pretraga(textBox1.Text);
         }
 
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e) // Postavi opis artikla u podnozje
+        {
+            var sifre_artikla = ArtikliOsnovno.GetUneseniArtikli(ArtikliOsnovno.Zahtjev.sifra);
+            var opisi_artikla = ArtikliOsnovno.GetUneseniArtikli(ArtikliOsnovno.Zahtjev.opis_artikla);
+
+            for (int i = 0; i < sifre_artikla.Count; i++)
+            {
+                if (Convert.ToInt64(dataGridView1.CurrentRow.Cells[0].Value) == Convert.ToInt64(sifre_artikla[i]))
+                {
+                    richTextBox1.Text = opisi_artikla[i];
+                    break;
+                }
+            }
+        }
+        private void IzracunajPodnozje() { // Racunaj podnozje nabavnu cijenu i maloprodajnu ukupno
+            decimal ukupno_MPC = 0.00M;
+            try
+            {
+                for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                {
+                    ukupno_MPC += Convert.ToInt32(dataGridView1.Rows[i].Cells["stanje"].Value) * Convert.ToDecimal(dataGridView1.Rows[i].Cells["MPC"].Value);
+                }
+            }
+            catch {
+                ukupno_MPC = 0;
+            }
+            textBox8.Text = ukupno_MPC.ToString();
+           // textBox5 dodati
+        }
     }
 }

@@ -46,6 +46,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
+            this.centifikatFiksalizacijeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -109,7 +110,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.maloprodajaToolStripMenuItem,
-            this.pregledFinancijaToolStripMenuItem});
+            this.pregledFinancijaToolStripMenuItem,
+            this.centifikatFiksalizacijeToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1365, 24);
@@ -129,14 +131,14 @@
             // noviRacunToolStripMenuItem
             // 
             this.noviRacunToolStripMenuItem.Name = "noviRacunToolStripMenuItem";
-            this.noviRacunToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.noviRacunToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.noviRacunToolStripMenuItem.Text = "Novi racun";
             this.noviRacunToolStripMenuItem.Click += new System.EventHandler(this.NoviRacunToolStripMenuItem_Click);
             // 
             // izbrisiTekućiToolStripMenuItem
             // 
             this.izbrisiTekućiToolStripMenuItem.Name = "izbrisiTekućiToolStripMenuItem";
-            this.izbrisiTekućiToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.izbrisiTekućiToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.izbrisiTekućiToolStripMenuItem.Text = "Izbrisi tekući";
             this.izbrisiTekućiToolStripMenuItem.Click += new System.EventHandler(this.izbrisiTekućiToolStripMenuItem_Click);
             // 
@@ -152,13 +154,13 @@
             // zbrojiUtržakToolStripMenuItem
             // 
             this.zbrojiUtržakToolStripMenuItem.Name = "zbrojiUtržakToolStripMenuItem";
-            this.zbrojiUtržakToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.zbrojiUtržakToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.zbrojiUtržakToolStripMenuItem.Text = "Zbroji utržak";
             // 
             // pregledUtrškaToolStripMenuItem
             // 
             this.pregledUtrškaToolStripMenuItem.Name = "pregledUtrškaToolStripMenuItem";
-            this.pregledUtrškaToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.pregledUtrškaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.pregledUtrškaToolStripMenuItem.Text = "Pregled utrška";
             // 
             // button1
@@ -223,6 +225,12 @@
             this.label3.TabIndex = 9;
             this.label3.Text = "DATUM : ";
             // 
+            // centifikatFiksalizacijeToolStripMenuItem
+            // 
+            this.centifikatFiksalizacijeToolStripMenuItem.Name = "centifikatFiksalizacijeToolStripMenuItem";
+            this.centifikatFiksalizacijeToolStripMenuItem.Size = new System.Drawing.Size(132, 20);
+            this.centifikatFiksalizacijeToolStripMenuItem.Text = "Centifikat fiksalizacije";
+            // 
             // Maloprodaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -268,5 +276,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ToolStripMenuItem centifikatFiksalizacijeToolStripMenuItem;
     }
 }

@@ -10,16 +10,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using Poslovni.Klase;
-using AutocompleteMenuNS;
 
 /// <summary>
 /// Autor : Mario Lučki
 /// Datum : 16.7.2018
 /// Kalkulacije predstavljaju glavnu formu za zaprimanje robe, printanje naljepnica, unos, 
-/// Projekt je startan iz hobija cilj nije zarada vec ucenje novih stvari
+/// Projekt je startan iz hobija cilj nije zarada vec ucenje novih vjestina
 /// 
 /// DODATI :
-/// Racunanje zaglavlja pdv problem kada je kolicina 0
+/// 
 /// Kompletno racunanje zaglavlja i unos zavisnih troskova kada je u pitanju dostava da se promjeni nabavna cijena artiklima
 /// 
 /// 
@@ -471,7 +470,8 @@ namespace Poslovni
             listBox1.SelectedIndex = listBox1.Items.Count - 1;
             SinkronizirajNaljepnice();
 
-            GernerirajStanje(); 
+            GernerirajStanje();
+            PostaviBarkodove();
             LoadOver = true;
         }
         #endregion
@@ -1618,7 +1618,6 @@ namespace Poslovni
         private string UbaciElemente() // Ubacuje element u body htmla
         {
 
-
             StringBuilder stringBuilder = new StringBuilder();
             int p = 0;
             foreach (Artikl art in artikli_za_ispis)
@@ -1628,7 +1627,6 @@ namespace Poslovni
             }
             return stringBuilder.ToString();
         }
-
         private string UbaciElementeSkripta() // Ubacuje elemente js u skripte za svaki kreirani element
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -1647,38 +1645,76 @@ namespace Poslovni
         #region Ispis naljepnica ovo zavrsavam upravo
         private void button4_Click(object sender, EventArgs e)
         {
-
+            
 
 
             #region Artikli koji se printaju
             artikli_za_ispis.Clear();
 
-            int na_poziciju = 0;
-            for (int i = 0; i < dataGridView3.Rows.Count; i++)
+            if (Convert.ToInt32(numericUpDown1.Value) > 0)
             {
-                for (int j = 0; j < Convert.ToInt32(dataGridView3.Rows[i].Cells["ZA_ISPIS"].Value); j++) {
-                    if ((na_poziciju % 2) == 0)
-                        artikli_za_ispis.Add(new Artikl { naziv = dataGridView3.Rows[i].Cells["NazivArtikla"].Value.ToString(), sifra = Convert.ToInt64( dataGridView3.Rows[i].Cells["id_artikl"].Value), MPC = Convert.ToSingle(dataGridView3.Rows[i].Cells["MPC"].Value), ispisna_pozicija = new Point(0, na_poziciju * 100) });
+                int na_poziciju = (Convert.ToInt32(numericUpDown1.Value) - 1);
+                for (int i = 0; i < dataGridView3.Rows.Count; i++)
+                {
+                    if(!(dataGridView3.Rows[i].Cells["ZA_ISPIS"].Value is DBNull))
+                    {
+                        if (Convert.ToInt32(dataGridView3.Rows[i].Cells["ZA_ISPIS"].Value) < 0)
+                        {
+                            MessageBox.Show("Ispis nije moguć vrijednosti ispisa nisu toćne");
+                            return;
+                        }
 
-                    else if  ((na_poziciju % 2) == 1)
-                        artikli_za_ispis.Add(new Artikl { naziv = dataGridView3.Rows[i].Cells["NazivArtikla"].Value.ToString(), sifra = Convert.ToInt64(dataGridView3.Rows[i].Cells["id_artikl"].Value), MPC = Convert.ToSingle(dataGridView3.Rows[i].Cells["MPC"].Value), ispisna_pozicija = new Point(320, (na_poziciju - 1) * 100) });
+                        for (int j = 0; j < Convert.ToInt32(dataGridView3.Rows[i].Cells["ZA_ISPIS"].Value); j++)
+                        {
+                            if ((na_poziciju % 2) == 0)
+                                artikli_za_ispis.Add(new Artikl { naziv = dataGridView3.Rows[i].Cells["NazivArtikla"].Value.ToString(), sifra = Convert.ToInt64(dataGridView3.Rows[i].Cells["id_artikl"].Value), MPC = Convert.ToSingle(dataGridView3.Rows[i].Cells["MPC"].Value), ispisna_pozicija = new Point(0, (na_poziciju) * 100) });
 
-                    na_poziciju++;
+                            else if ((na_poziciju % 2) == 1)
+                                artikli_za_ispis.Add(new Artikl { naziv = dataGridView3.Rows[i].Cells["NazivArtikla"].Value.ToString(), sifra = Convert.ToInt64(dataGridView3.Rows[i].Cells["id_artikl"].Value), MPC = Convert.ToSingle(dataGridView3.Rows[i].Cells["MPC"].Value), ispisna_pozicija = new Point(320, (na_poziciju - 1) * 100) });
+
+                            na_poziciju++;
+                        }
+
+
+                    }
+                    else {
+                        MessageBox.Show("Ispis nije moguć vrijednosti ispisa nisu toćne");
+                        return;
+                    }
                 }
+
+                #endregion
+
+
+                UbaciElem ubaciElem = new UbaciElem(UbaciElemente); // Koristi funkcijski pointer tako da se moze direkno promjeniti na koji nacin se ispisuje u funkcijama iznad itd.
+                UbaciElemSkripte ubaciElemSkripte = new UbaciElemSkripte(UbaciElementeSkripta);
+                PrinterNaljepnica.KreirajTestno(ubaciElem, ubaciElemSkripte);
+            }
+            else {
+                MessageBox.Show("Krivi unos pozicije naljepnice");
+            }
+        }
+        private void PostaviBarkodove()
+        {
+            foreach (string barkod in Enum.GetNames(typeof(Barkod))){
+                comboBox2.Items.Add(barkod);
             }
 
-            #endregion
-
-
-            UbaciElem ubaciElem = new UbaciElem(UbaciElemente); // Koristi funkcijski pointer tako da se moze direkno promjeniti na koji nacin se ispisuje u funkcijama iznad itd.
-            UbaciElemSkripte ubaciElemSkripte = new UbaciElemSkripte(UbaciElementeSkripta);
-            PrinterNaljepnica.KreirajTestno(ubaciElem, ubaciElemSkripte);
         }
-
         #endregion
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
     
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            // POSTAVI SVE ISPISE U 0
+            for (int i = 0; i < dataGridView1.RowCount - 1; i++)
+            {
+                dataGridView3.Rows[i].Cells["ZA_ISPIS"].Value = 1;
+            }
+
         }
     }
 

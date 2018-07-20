@@ -27,9 +27,7 @@ namespace Poslovni
         List<int> _aktivni_artikli_sifra { get; set; }
         List<int> _uneseni_aktivni_artikli_sifra { get; set; }
         List<int> _uneseni_aktivni_artikli_sifra_zbirno { get; set; }
-
         List<Artikl> _uneseni_aktivni_artikli { get; set; }
-
         List<String> _kalkulacije_artikli_naziv { get; set; }
         List<String> _neaktivne_kalkulacije { get; set; }
         List<String> _alltables { get; set; }
@@ -261,19 +259,11 @@ namespace Poslovni
 
                         string query = "SELECT id_artikl,NazivArtikla,kolicina,cijena,MPC,MPC_popust FROM primka_stavke" + temp[1] + " WHERE id_primka=" + temp[0];
 
-
-
-
                         DataSet ds = new DataSet();
                         MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(query, mysqlcon);
                         mySqlDataAdapter.Fill(ds);
 
                         DataTable dt = ds.Tables[0];
-
-
-
-
-
 
                         for (int f = 0; f < dt.Rows.Count; f++)
                         {
@@ -308,9 +298,6 @@ namespace Poslovni
                                 artikl.opis_artikla = datatable2.Rows[0]["opis_artikla"].ToString();
 
                             }
-
-
-
                             _uneseni_aktivni_artikli.Add(artikl);
                         }
                     }
