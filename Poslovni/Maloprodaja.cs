@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using AutocompleteMenuNS;
 using MySql.Data.MySqlClient;
 using System.Media;
+using System.Drawing;
 
 namespace Poslovni
 {
@@ -74,8 +75,15 @@ namespace Poslovni
             PostaviRacunaAsync(listBox1.Items[listBox1.SelectedIndex].ToString(), "");
             PostaviDizajn();
             ReindeksirajStavke();
+            ZakljucajCelije();
             RacunajIznosRacuna();
+
         }
+        private void ZakljucajCelije() {
+            dataGridView1.ReadOnly = !racuni.ProvjeriAktivnost(Convert.ToInt32(listBox1.SelectedItem) - 1);
+
+        }
+
         private void PostaviDizajn() {
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
@@ -362,13 +370,11 @@ namespace Poslovni
         {
             Button1_Click("", EventArgs.Empty);
         }
-        private bool ProvjeriAktivnostRacuna(int id) {
-            return true; // WILL BE IMPLIMENTED SOON
-        }
+   
         private void SikronizirajStavkeRacuna()
         {
 
-            if (ProvjeriAktivnostRacuna(Convert.ToInt32(listBox1.SelectedItem)) == true)
+            if (racuni.ProvjeriAktivnost(Convert.ToInt32(listBox1.SelectedItem ) - 1) == true)
             { // ONLY DELETE DATA FROM TABLES IF ACTIVE OTHERWISE JUST READ
                 using (MySqlConnection sqlconn = new MySqlConnection(Login.constring))
                 {
@@ -446,6 +452,43 @@ namespace Poslovni
 
         }
 
+
+        private void listBox1_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            
+            if (e.Index < 0) return;
+
+
+
+            Graphics g = e.Graphics;
+            g.FillRectangle(new SolidBrush(Color.Red), e.Bounds);
+            ListBox lb = (ListBox)sender;
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+                e = new DrawItemEventArgs(e.Graphics,
+                                          e.Font,
+                                          e.Bounds,
+                                          e.Index,
+                                          e.State ^ DrawItemState.Selected,
+                                          e.ForeColor,
+                                          Color.GreenYellow);//Choose the color
+
+
+          
+              
+            e.DrawBackground();
+
+
+            if (racuni.ProvjeriAktivnost(Convert.ToInt16(listBox1.Items[e.Index].ToString()) - 1))
+                e.Graphics.DrawString(listBox1.Items[e.Index].ToString(), e.Font, new SolidBrush(Color.Red), e.Bounds, StringFormat.GenericDefault);
+            else
+                e.Graphics.DrawString(listBox1.Items[e.Index].ToString(), e.Font, new SolidBrush(Color.Black), e.Bounds, StringFormat.GenericDefault);
+
+
+            e.DrawFocusRectangle();
+        }
+
+
+
         private void RacunajIznosRacuna() {
             decimal ukupno = 0;
             try
@@ -472,9 +515,10 @@ namespace Poslovni
 
             if (brojItemaUracunu.HasValue && dateTimePicker1.Value.Date == DateTime.UtcNow.Date)
             {
-                if ((listBox1.SelectedIndex == brojItemaUracunu)) // Dodati provjeru aktivnosti
+                if ((listBox1.SelectedIndex == brojItemaUracunu) && !racuni.ProvjeriAktivnost(listBox1.SelectedIndex -1)) // Dodati provjeru aktivnosti
                 {
-                    MessageBox.Show("Brisi");
+                    racuni.IzbrisiTekuci();
+                    SikronizirajListuRacuna(dateTimePicker1.Value.ToString("dd.M.yyyy"));
                 }
                 else
                 {

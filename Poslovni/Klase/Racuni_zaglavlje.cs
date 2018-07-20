@@ -30,7 +30,23 @@ namespace Poslovni.Klase
         public float MPC_Popust { get; set; }
         public float MPC_Prodano { get; set; }
     }
-   
+
+    public enum NacinPlacanja {
+        gotovina = 0,
+        kartica = 0,
+    }
+    public struct R1_racun {
+        string naziv_partnera;
+        long oib;
+        string adresa;
+    }
+    public struct Racun_kljucno {
+        decimal pdv;
+        decimal iznos;
+        decimal osnovica;
+        decimal primljeni_iznos;
+    }
+
     public class Racuni {
         private List<Racun> listRacuni { get; set; }
         private List<Artikl> artikli_na_stanju { get; set; } // MOGUCE JE ODBRATI ARTIKLE KOJI SU NA STANJU 
@@ -68,8 +84,11 @@ namespace Poslovni.Klase
                         id_racun = Convert.ToInt32(dataSet.Tables[0].Rows[i]["id_racun"].ToString()),
                         id_kreirao = Convert.ToInt32(dataSet.Tables[0].Rows[i]["id_kreirao"].ToString()),
                         id_vrsta_placanja = Convert.ToInt32(dataSet.Tables[0].Rows[i]["id_vrsta_placanja"].ToString()),
-                        datum_racuna = dataSet.Tables[0].Rows[i]["datum_racuna"].ToString() // DODATI OSTALO
-                };
+                        datum_racuna = dataSet.Tables[0].Rows[i]["datum_racuna"].ToString(),
+                        aktivan = Convert.ToBoolean(Convert.ToInt32(dataSet.Tables[0].Rows[i]["aktivan"].ToString())) 
+
+                        // DODATI OSTALO
+                    };
                     listRacuni.Add(racun);
                 }
             }
@@ -86,16 +105,52 @@ namespace Poslovni.Klase
 
         public void AddRacun()
         {
+            if (ProvjeriAktivnost(Count() - 1) == true)
+                return;
+
             Sinkroniziraj();
                 using (MySqlConnection mysql = new MySqlConnection(Login.constring))
                 {
                     mysql.Open();
-                    string query = "INSERT INTO racuni_zaglavlje(id_racun,id_kreirao,id_vrsta_placanja,datum_racuna,aktivan,vrijeme_izrade)" + godina_ref + " VALUES('" + (Count() + 1) + "','" + Login.logid + "','" + 0 + "','" + DateTime.Today.Date.ToString("dd.M.yyyy") + "','"+0+"','" + DateTime.UtcNow.TimeOfDay.ToString() + "')";
+                    string query = "INSERT INTO racuni_zaglavlje(id_racun,id_kreirao,id_vrsta_placanja,datum_racuna,aktivan,vrijeme_izrade)" + godina_ref + " VALUES('" + (Count() + 1) + "','" + Login.logid + "','" + 0 + "','" + DateTime.Today.Date.ToString("dd.M.yyyy") + "','"+1+"','" + DateTime.UtcNow.TimeOfDay.ToString() + "')";
                     MySqlCommand mySqlCommand = new MySqlCommand(query, mysql);
                     mySqlCommand.ExecuteNonQuery();
                 }
             Sinkroniziraj();
 
         }
-    };
+        public void IzbrisiTekuci() {
+            Sinkroniziraj();
+            if (ProvjeriAktivnost(Count() - 1) == false)
+                return;
+
+         
+            using (MySqlConnection mysql = new MySqlConnection(Login.constring))
+            {
+                mysql.Open();
+                string query = "DELETE FROM racuni_zaglavlje WHERE id_racun = "+(Count());
+                MySqlCommand mySqlCommand = new MySqlCommand(query, mysql);
+                mySqlCommand.ExecuteNonQuery();
+            }
+
+
+            Sinkroniziraj();
+
+        }
+
+        public bool ProvjeriAktivnost(int id_racun) {
+               return listRacuni[id_racun].aktivan;
+        }
+
+        public void ZakljuciRacun(NacinPlacanja nacin_pl, Racun_kljucno racun_Kljucno)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ZakljuciRacun(NacinPlacanja nacin_pl,Racun_kljucno racun_Kljucno,R1_racun r1_Racun) {
+
+            throw new NotImplementedException();
+        }
+    }
+
 }

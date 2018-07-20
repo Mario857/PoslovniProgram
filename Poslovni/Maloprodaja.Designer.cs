@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -40,13 +40,13 @@
             this.pregledFinancijaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zbrojiUtržakToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pregledUtrškaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.centifikatFiksalizacijeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
-            this.centifikatFiksalizacijeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -66,6 +66,7 @@
             // 
             this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.listBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 29;
@@ -73,6 +74,7 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(94, 555);
             this.listBox1.TabIndex = 1;
+            this.listBox1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBox1_DrawItem);
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // dataGridView1
@@ -81,23 +83,23 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Modern No. 20", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Modern No. 20", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Modern No. 20", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Modern No. 20", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridView1.Location = new System.Drawing.Point(128, 105);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(1211, 563);
@@ -131,14 +133,14 @@
             // noviRacunToolStripMenuItem
             // 
             this.noviRacunToolStripMenuItem.Name = "noviRacunToolStripMenuItem";
-            this.noviRacunToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.noviRacunToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.noviRacunToolStripMenuItem.Text = "Novi racun";
             this.noviRacunToolStripMenuItem.Click += new System.EventHandler(this.NoviRacunToolStripMenuItem_Click);
             // 
             // izbrisiTekućiToolStripMenuItem
             // 
             this.izbrisiTekućiToolStripMenuItem.Name = "izbrisiTekućiToolStripMenuItem";
-            this.izbrisiTekućiToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.izbrisiTekućiToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.izbrisiTekućiToolStripMenuItem.Text = "Izbrisi tekući";
             this.izbrisiTekućiToolStripMenuItem.Click += new System.EventHandler(this.izbrisiTekućiToolStripMenuItem_Click);
             // 
@@ -154,14 +156,20 @@
             // zbrojiUtržakToolStripMenuItem
             // 
             this.zbrojiUtržakToolStripMenuItem.Name = "zbrojiUtržakToolStripMenuItem";
-            this.zbrojiUtržakToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.zbrojiUtržakToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.zbrojiUtržakToolStripMenuItem.Text = "Zbroji utržak";
             // 
             // pregledUtrškaToolStripMenuItem
             // 
             this.pregledUtrškaToolStripMenuItem.Name = "pregledUtrškaToolStripMenuItem";
-            this.pregledUtrškaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pregledUtrškaToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.pregledUtrškaToolStripMenuItem.Text = "Pregled utrška";
+            // 
+            // centifikatFiksalizacijeToolStripMenuItem
+            // 
+            this.centifikatFiksalizacijeToolStripMenuItem.Name = "centifikatFiksalizacijeToolStripMenuItem";
+            this.centifikatFiksalizacijeToolStripMenuItem.Size = new System.Drawing.Size(132, 20);
+            this.centifikatFiksalizacijeToolStripMenuItem.Text = "Centifikat fiksalizacije";
             // 
             // button1
             // 
@@ -224,12 +232,6 @@
             this.label3.Size = new System.Drawing.Size(86, 20);
             this.label3.TabIndex = 9;
             this.label3.Text = "DATUM : ";
-            // 
-            // centifikatFiksalizacijeToolStripMenuItem
-            // 
-            this.centifikatFiksalizacijeToolStripMenuItem.Name = "centifikatFiksalizacijeToolStripMenuItem";
-            this.centifikatFiksalizacijeToolStripMenuItem.Size = new System.Drawing.Size(132, 20);
-            this.centifikatFiksalizacijeToolStripMenuItem.Text = "Centifikat fiksalizacije";
             // 
             // Maloprodaja
             // 
