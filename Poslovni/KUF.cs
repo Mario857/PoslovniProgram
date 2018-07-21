@@ -343,7 +343,6 @@ namespace Poslovni
             this.textBox10.Text = kuf_Postavke.GetOsnovica().ToString();
             this.textBox11.Text = kuf_Postavke.GetPorez().ToString();
             this.textBox12.Text = kuf_Postavke.GetUkupno().ToString();
-            this.textBox8.Text = kuf_Postavke.GetRokP().ToString();
 
 
             // SET VRSTA RAČUNA
@@ -355,8 +354,8 @@ namespace Poslovni
 
 
 
-            maskedTextBox1.Text =  kuf_Postavke.GetDatumR();
-            maskedTextBox2.Text =  kuf_Postavke.GetDatumV();
+            datumRacuna.Value =DateTime.Parse(kuf_Postavke.GetDatumR()).Date;
+            datumValute.Value =DateTime.Parse(kuf_Postavke.GetDatumV()).Date;
         }
 
         private void KUF_Load(object sender, EventArgs e)
@@ -377,10 +376,9 @@ namespace Poslovni
             kuf_Postavke.SetBrUDok(textBox4.Text);
             kuf_Postavke.SetOdbRac(comboBox1.Text);
 
-            kuf_Postavke.SetDatumR(maskedTextBox1.Text);
-            kuf_Postavke.SetDatumV(maskedTextBox2.Text);
+            kuf_Postavke.SetDatumR(datumRacuna.Value.Date.ToString());
+            kuf_Postavke.SetDatumV(datumValute.Value.Date.ToString());
 
-            kuf_Postavke.SetRokP(Convert.ToUInt32(textBox8.Text));
             kuf_Postavke.SetOsnovica(Convert.ToSingle(textBox10.Text));
             kuf_Postavke.SetPorez(Convert.ToSingle(textBox11.Text));
             kuf_Postavke.SetUkupno(Convert.ToSingle(textBox12.Text));
@@ -421,38 +419,16 @@ namespace Poslovni
         {
             if (e.KeyCode == Keys.Enter)
             {
-                maskedTextBox1.Focus();
-                maskedTextBox1.SelectionStart = 0;
+                datumRacuna.Focus();
+                
             }
         }
-     
-        private void maskedTextBox1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-
-
-                textBox8.Focus();
-
-
-
-            }
-            
-        }
-
-        private void maskedTextBox2_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter) 
-                textBox10.Focus();
-        }
-
+ 
         private void textBox8_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                maskedTextBox2.Focus();
-                maskedTextBox2.SelectionStart = 0;
-
+                datumValute.Focus();
             }
         }
 
