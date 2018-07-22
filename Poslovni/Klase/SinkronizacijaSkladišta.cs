@@ -407,7 +407,7 @@ namespace Poslovni
                         if (uneseni_art.nab_cijena != 0) {
 
 
-                            art.nab_cijena += uneseni_art.nab_cijena;
+                           
                             art.sifra = uneseni_art.sifra;
                             art.naziv = uneseni_art.naziv;
                             art.dobavljac = uneseni_art.dobavljac;
@@ -419,8 +419,8 @@ namespace Poslovni
                             art.opis_artikla = uneseni_art.opis_artikla;
                             art.robna_marka = uneseni_art.robna_marka;
                             art.kolicina += uneseni_art.kolicina;
-
-
+                            art.nab_cijena += uneseni_art.nab_cijena;
+                            art.nab_vrijednost += uneseni_art.nab_cijena * Math.Abs(uneseni_art.kolicina);
 
                             if (art.kolicina == 0)
                             {
@@ -444,8 +444,10 @@ namespace Poslovni
 
             }
             art.nab_cijena /= j;
+            art.nab_vrijednost /= art.kolicina;
+
             var pdv_artikla = ArtikliOsnovno.GetStopaFromSifra(sifra);
-             art.min_mpc = art.nab_cijena * (1 + ((float)pdv_artikla / 100));
+             art.min_mpc = art.nab_vrijednost * (1 + ((float)pdv_artikla / 100));
             
             return art;
         }

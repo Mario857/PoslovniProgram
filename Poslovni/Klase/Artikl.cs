@@ -15,7 +15,8 @@ namespace Poslovni
         public string naziv; 
         public int kolicina;
         public int poreza_grupa;
-        public float nab_cijena; 
+        public float nab_cijena;
+        public float nab_vrijednost;
         public float popust;
         public float MPC;
         public string ulaz;

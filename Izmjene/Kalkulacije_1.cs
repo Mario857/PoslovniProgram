@@ -76,12 +76,19 @@ namespace Poslovni
 
                 for (int i = 0; i < dataGridView1.RowCount; i++)
                 {
-                    if (Convert.ToSingle(dataGridView1.Rows[i].Cells["kolicina"].Value) != 0)
+                    if (Convert.ToSingle(dataGridView1.Rows[i].Cells["kolicina"].Value) > 0)
                     {
                         osnovica += Convert.ToSingle(dataGridView1.Rows[i].Cells["vrijednost"].Value);
                         pdv_prosjek += Convert.ToSingle(dataGridView1.Rows[i].Cells["pdv"].Value);
 
                         dijeli++;
+                    }
+                    else if (Convert.ToSingle(dataGridView1.Rows[i].Cells["kolicina"].Value) < 0)
+                    {
+                            osnovica -= Convert.ToSingle(dataGridView1.Rows[i].Cells["vrijednost"].Value);
+                            pdv_prosjek += Convert.ToSingle(dataGridView1.Rows[i].Cells["pdv"].Value);
+
+                            dijeli++;
                     }
                 }
                 textBox3.Text = osnovica.ToString();

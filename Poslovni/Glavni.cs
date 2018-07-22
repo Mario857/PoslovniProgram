@@ -247,5 +247,10 @@ namespace Poslovni
             }
 
         }
+
+        private void sinkronizirajToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
