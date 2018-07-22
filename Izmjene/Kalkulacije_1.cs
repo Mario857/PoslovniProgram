@@ -359,11 +359,12 @@ namespace Poslovni
             dataGridView1.Columns["RUC"].ReadOnly = true;
             dataGridView1.Columns["id"].ReadOnly = true;
 
-            dataGridView1.Columns["vrijednost"].DefaultCellStyle.Format = "c2";
-            dataGridView1.Columns["cijena"].DefaultCellStyle.Format = "c2";
-            dataGridView1.Columns["marza"].ValueType = typeof(Decimal);
-            dataGridView1.Columns["vrijednost"].ValueType = typeof(Decimal);
-            dataGridView1.Columns["MPC_popust"].ValueType = typeof(Decimal);
+            dataGridView1.Columns["vrijednost"].DefaultCellStyle.Format = "C";
+            dataGridView1.Columns["cijena"].DefaultCellStyle.Format = "C";
+            dataGridView1.Columns["MPC"].DefaultCellStyle.Format = "C";
+            dataGridView1.Columns["MPC_popust"].DefaultCellStyle.Format = "C";
+            dataGridView1.Columns["marza"].DefaultCellStyle.Format = "n1";
+            dataGridView1.Columns["RUC"].DefaultCellStyle.Format = "n1";
 
             dataGridView1.DataError += dataGridView1_DataError;
 
@@ -379,7 +380,7 @@ namespace Poslovni
             if (e.Exception != null &&
                 e.Context == DataGridViewDataErrorContexts.Commit)
             {
-                MessageBox.Show("CustomerID value must be unique.");
+                MessageBox.Show("Value must be unique.");
             }
         }
 

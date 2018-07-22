@@ -16,7 +16,7 @@ namespace Poslovni.Klase
                     sqlcon.Open();
                     
                     //Create primka stavke
-                    string query1 = "CREATE TABLE IF NOT EXISTS `primka_stavke" + DateTime.UtcNow.Year + "` ( `id_primka` varchar(11) NOT NULL, `id_artikl` int(20) DEFAULT NULL, `kolicina` int(11) NOT NULL, `grupa` varchar(20) DEFAULT NULL, `pdv` int(11) DEFAULT '0', `jed_mj` VARCHAR(11) DEFAULT '0', `cijena` varchar(50) DEFAULT '0', `vrijednost` varchar(50) DEFAULT '0', `rabat` int(11) DEFAULT '0', `marza` varchar(50) DEFAULT '0', `RUC` varchar(50) DEFAULT '0', `MPC` varchar(50) DEFAULT '0', `Popust` int(11) DEFAULT '0', `MPC_Popust` varchar(50) DEFAULT '0', `NazivArtikla` varchar(30) NOT NULL, `id` int(30) NOT NULL, `unikatni_broj` int(11) NOT NULL AUTO_INCREMENT, PRIMARY KEY (`unikatni_broj`) ) ENGINE=InnoDB AUTO_INCREMENT=225 DEFAULT CHARSET=latin1";
+                    string query1 = "CREATE TABLE IF NOT EXISTS `primka_stavke" + DateTime.UtcNow.Year + "` ( `id_primka` varchar(11) NOT NULL, `id_artikl` int(20) DEFAULT NULL, `kolicina` int(11) NOT NULL, `grupa` varchar(20) DEFAULT NULL, `pdv` int(11) DEFAULT '0', `jed_mj` VARCHAR(11) DEFAULT '0', `cijena` float(20,2) DEFAULT '0', `vrijednost` float(20,2) DEFAULT '0', `rabat` int(11) DEFAULT '0', `marza` float(20,2) DEFAULT '0', `RUC` float(20,2) DEFAULT '0', `MPC` float(20,2) DEFAULT '0', `Popust` int(11) DEFAULT '0', `MPC_Popust` float(20,2) DEFAULT '0', `NazivArtikla` varchar(30) NOT NULL, `id` int(30) NOT NULL, `unikatni_broj` int(11) NOT NULL AUTO_INCREMENT, PRIMARY KEY (`unikatni_broj`) ) ENGINE=InnoDB AUTO_INCREMENT=225 DEFAULT CHARSET=latin1";
                     MySqlCommand mySqlCommand = new MySqlCommand(query1, sqlcon);
                     mySqlCommand.ExecuteNonQuery();
   
@@ -39,7 +39,7 @@ namespace Poslovni.Klase
             using (MySqlConnection mysqlc = new MySqlConnection(Login.constring))
             {
                         mysqlc.Open();
-                        String query1 = "CREATE TABLE IF NOT EXISTS stanje_skladista ( sifra INT(20) PRIMARY KEY , naziv VARCHAR(20), stanje VARCHAR(10), MPC VARCHAR(10), MPC_Popust VARCHAR(10), vrsta VARCHAR(20), podgrupa VARCHAR(20), osobine_artikla VARCHAR(20), min_MPC VARCHAR(20), dobavljac VARCHAR(20) );";
+                        String query1 = "CREATE TABLE IF NOT EXISTS stanje_skladista ( sifra INT(20) PRIMARY KEY , naziv VARCHAR(20), stanje VARCHAR(10), MPC VARCHAR(10), MPC_Popust VARCHAR(10), vrsta VARCHAR(20), podgrupa VARCHAR(20), osobine_artikla VARCHAR(20), min_MPC float(20,2), dobavljac VARCHAR(20) );";
                         MySqlCommand mySqlCommand = new MySqlCommand(query1, mysqlc);
                         mySqlCommand.ExecuteNonQuery();
              }

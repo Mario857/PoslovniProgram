@@ -79,6 +79,10 @@ namespace Poslovni
                      await mySqlDataAdapter.FillAsync(ds);
                     PostaviIzvjestaj(ds);
                     dataGridView1.DataSource = ds.Tables[0];
+
+                    dataGridView1.Columns["MPC"].DefaultCellStyle.Format = "C";
+                    dataGridView1.Columns["MPC_Popust"].DefaultCellStyle.Format = "C";
+                    dataGridView1.Columns["min_MPC"].DefaultCellStyle.Format = "C";
                 }
             }
             catch { };
@@ -93,6 +97,9 @@ namespace Poslovni
             textBox7.Enabled = false;
 
             comboBox1.SelectedItem = "naziv";
+
+
+
         }
 
 

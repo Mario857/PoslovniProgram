@@ -48,7 +48,7 @@ namespace Poslovni.Klase
     }
 
     public class Racuni {
-        private List<Racun> listRacuni { get; set; }
+        private List<Racun> ListRacuni { get; set; }
         private List<Artikl> artikli_na_stanju { get; set; } // MOGUCE JE ODBRATI ARTIKLE KOJI SU NA STANJU 
         private string godina_ref { get; set; }
 
@@ -68,8 +68,8 @@ namespace Poslovni.Klase
             }
         }
         public void FillRacuniList() {
-            listRacuni = new List<Racun>();
-            listRacuni.Clear();
+            ListRacuni = new List<Racun>();
+            ListRacuni.Clear();
 
             using (MySqlConnection mysql = new MySqlConnection(Login.constring))
             {
@@ -89,12 +89,12 @@ namespace Poslovni.Klase
 
                         // DODATI OSTALO
                     };
-                    listRacuni.Add(racun);
+                    ListRacuni.Add(racun);
                 }
             }
         }
         public List<Racun> GetRacuni() {
-            return listRacuni;
+            return ListRacuni;
         }
 
         public void Sinkroniziraj() {
@@ -121,17 +121,27 @@ namespace Poslovni.Klase
         }
         public void IzbrisiTekuci() {
             Sinkroniziraj();
+
             if (ProvjeriAktivnost(Count() - 1) == false)
                 return;
 
-         
             using (MySqlConnection mysql = new MySqlConnection(Login.constring))
             {
                 mysql.Open();
-                string query = "DELETE FROM racuni_zaglavlje WHERE id_racun = "+(Count());
+                string query = "DELETE FROM racuni_stavke" + godina_ref + " WHERE id_racun = " + (Count() );
                 MySqlCommand mySqlCommand = new MySqlCommand(query, mysql);
                 mySqlCommand.ExecuteNonQuery();
             }
+            using (MySqlConnection mysql = new MySqlConnection(Login.constring))
+            {
+                mysql.Open();
+                string query = "DELETE FROM racuni_zaglavlje"+ godina_ref + " WHERE id_racun = "+(Count());
+                MySqlCommand mySqlCommand = new MySqlCommand(query, mysql);
+                mySqlCommand.ExecuteNonQuery();
+            }
+
+
+
 
 
             Sinkroniziraj();
@@ -139,7 +149,7 @@ namespace Poslovni.Klase
         }
 
         public bool ProvjeriAktivnost(int id_racun) {
-               return listRacuni[id_racun].aktivan;
+               return ListRacuni[id_racun].aktivan;
         }
 
         public void ZakljuciRacun(NacinPlacanja nacin_pl, Racun_kljucno racun_Kljucno)

@@ -27,6 +27,8 @@ namespace Poslovni
                     listBox1.Items.Add(r.id_racun);
             }
 
+        
+
             listBox1.SelectedIndex = listBox1.Items.Count - 1;
         }
 
@@ -515,9 +517,10 @@ namespace Poslovni
 
             if (brojItemaUracunu.HasValue && dateTimePicker1.Value.Date == DateTime.UtcNow.Date)
             {
-                if ((listBox1.SelectedIndex == brojItemaUracunu) && !racuni.ProvjeriAktivnost(listBox1.SelectedIndex -1)) // Dodati provjeru aktivnosti
+                if ((listBox1.SelectedIndex == brojItemaUracunu) && !racuni.ProvjeriAktivnost(listBox1.SelectedIndex)) // Dodati provjeru aktivnosti
                 {
                     racuni.IzbrisiTekuci();
+                    dataGridView1.DataSource = null;
                     SikronizirajListuRacuna(dateTimePicker1.Value.ToString("dd.M.yyyy"));
                 }
                 else
