@@ -139,5 +139,113 @@ namespace Poslovni
             PregledProdaje pregled_prodaje = new PregledProdaje();
             pregled_prodaje.Show();
         }
+
+        private void regenerirajToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void stanjeSkladistaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (MySqlConnection mysql = new MySqlConnection(Login.constring))
+            {
+                mysql.Open();
+                string query = "DROP table stanje_skladista";
+                MySqlCommand mySqlCommand = new MySqlCommand(query, mysql);
+                mySqlCommand.ExecuteNonQuery();
+            }
+            Klase.MYSQLTableBuilder.CreateStanjeSkladista();
+
+
+        }
+
+        private void rekreirajPrimkeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (MySqlConnection mysql = new MySqlConnection(Login.constring))
+            {
+                mysql.Open();
+                string query = "DROP table stanje_skladista; DROP table primka_stavke" + DateTime.UtcNow.Year + "; DROP table primka" + DateTime.UtcNow.Year + "; DROP table kuf"+DateTime.UtcNow.Year  ;
+                MySqlCommand mySqlCommand = new MySqlCommand(query, mysql);
+                mySqlCommand.ExecuteNonQuery();
+            }
+
+            Klase.MYSQLTableBuilder.CreatePrimkaTables();
+            Klase.MYSQLTableBuilder.CreateStanjeSkladista();
+
+        }
+
+        private void napraviKopijuToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            string file = "";
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+            saveFileDialog.Filter = "MYSQL File (*.sql)|*.sql";
+            saveFileDialog.RestoreDirectory = true;
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                file = saveFileDialog.FileName;
+            }
+
+            if (file == "")
+                return;
+         
+            using (MySqlConnection conn = new MySqlConnection(Login.constring))
+            {
+                using (MySqlCommand cmd = new MySqlCommand())
+                {
+                    using (MySqlBackup mb = new MySqlBackup(cmd))
+                    {
+                        cmd.Connection = conn;
+                        conn.Open();
+                        mb.ExportToFile(file);
+                        conn.Close();
+                    }
+                }
+            }
+        }
+
+        private void ucitajBazuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string file = "";
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.Filter = "MYSQL File (*.sql)|*.sql";
+            openFileDialog.RestoreDirectory = true;
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                file = openFileDialog.FileName;
+            }
+
+            if (file == "")
+            {
+                MessageBox.Show("Greška");
+                return;
+            }
+
+            try
+            {
+
+                using (MySqlConnection conn = new MySqlConnection(Login.constring))
+                {
+                    using (MySqlCommand cmd = new MySqlCommand())
+                    {
+                        using (MySqlBackup mb = new MySqlBackup(cmd))
+                        {
+                            cmd.Connection = conn;
+                            conn.Open();
+                            mb.ImportFromFile(file);
+                            conn.Close();
+                            MessageBox.Show("Ucitano uspjesno!");
+                        }
+                    }
+                }
+            }
+            catch(Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
     }
 }

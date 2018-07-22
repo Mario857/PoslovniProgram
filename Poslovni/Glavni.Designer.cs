@@ -31,10 +31,15 @@
             this.Admin = new System.Windows.Forms.GroupBox();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.papirologija = new System.Windows.Forms.GroupBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.kalkulacije = new System.Windows.Forms.Button();
+            this.zaprimanje = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button4 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.maloprodaja = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.zaprimanjeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.unosArtiklaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,15 +51,17 @@
             this.računovodstvoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kUFPregledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pregledMjPrometaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.fiskalizacijaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.parametriFiskalizacijeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.maloprodaja = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.kalkulacije = new System.Windows.Forms.Button();
-            this.zaprimanje = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.bazaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.regenerirajToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.napraviKopijuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stanjeSkladistaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rekreirajPrimkeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.napraviKopijuToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ucitajBazuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Admin.SuspendLayout();
             this.papirologija.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -95,6 +102,19 @@
             this.button5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button5.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Image = global::Poslovni.Properties.Resources.teamwork;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.button1.Location = new System.Drawing.Point(23, 34);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(103, 98);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Korisnici";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // papirologija
             // 
             this.papirologija.Controls.Add(this.button3);
@@ -107,6 +127,46 @@
             this.papirologija.TabIndex = 1;
             this.papirologija.TabStop = false;
             this.papirologija.Text = "Skladišno poslovanje";
+            // 
+            // button3
+            // 
+            this.button3.Image = global::Poslovni.Properties.Resources.analysis;
+            this.button3.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.button3.Location = new System.Drawing.Point(17, 154);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(119, 98);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "Pregled skladišta";
+            this.button3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // kalkulacije
+            // 
+            this.kalkulacije.Font = new System.Drawing.Font("MS Reference Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.kalkulacije.Image = global::Poslovni.Properties.Resources.agreement;
+            this.kalkulacije.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.kalkulacije.Location = new System.Drawing.Point(17, 34);
+            this.kalkulacije.Name = "kalkulacije";
+            this.kalkulacije.Size = new System.Drawing.Size(119, 98);
+            this.kalkulacije.TabIndex = 0;
+            this.kalkulacije.Text = "Kalkulacije";
+            this.kalkulacije.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.kalkulacije.UseVisualStyleBackColor = true;
+            this.kalkulacije.Click += new System.EventHandler(this.kalkulacije_Click);
+            // 
+            // zaprimanje
+            // 
+            this.zaprimanje.Image = global::Poslovni.Properties.Resources.worker;
+            this.zaprimanje.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.zaprimanje.Location = new System.Drawing.Point(17, 281);
+            this.zaprimanje.Name = "zaprimanje";
+            this.zaprimanje.Size = new System.Drawing.Size(119, 98);
+            this.zaprimanje.TabIndex = 1;
+            this.zaprimanje.Text = "Financije";
+            this.zaprimanje.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.zaprimanje.UseVisualStyleBackColor = true;
+            this.zaprimanje.Click += new System.EventHandler(this.zaprimanje_Click);
             // 
             // groupBox1
             // 
@@ -142,13 +202,27 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
+            // maloprodaja
+            // 
+            this.maloprodaja.Image = global::Poslovni.Properties.Resources.money_bag;
+            this.maloprodaja.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.maloprodaja.Location = new System.Drawing.Point(19, 35);
+            this.maloprodaja.Name = "maloprodaja";
+            this.maloprodaja.Size = new System.Drawing.Size(106, 98);
+            this.maloprodaja.TabIndex = 2;
+            this.maloprodaja.Text = "Maloprodaja";
+            this.maloprodaja.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.maloprodaja.UseVisualStyleBackColor = true;
+            this.maloprodaja.Click += new System.EventHandler(this.maloprodaja_Click);
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.zaprimanjeToolStripMenuItem,
             this.veleprodajaToolStripMenuItem,
             this.računovodstvoToolStripMenuItem,
-            this.fiskalizacijaToolStripMenuItem});
+            this.fiskalizacijaToolStripMenuItem,
+            this.bazaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(776, 24);
@@ -228,6 +302,20 @@
             this.pregledMjPrometaToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.pregledMjPrometaToolStripMenuItem.Text = "Pregled mj prometa";
             // 
+            // fiskalizacijaToolStripMenuItem
+            // 
+            this.fiskalizacijaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.parametriFiskalizacijeToolStripMenuItem});
+            this.fiskalizacijaToolStripMenuItem.Name = "fiskalizacijaToolStripMenuItem";
+            this.fiskalizacijaToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
+            this.fiskalizacijaToolStripMenuItem.Text = "Fiskalizacija";
+            // 
+            // parametriFiskalizacijeToolStripMenuItem
+            // 
+            this.parametriFiskalizacijeToolStripMenuItem.Name = "parametriFiskalizacijeToolStripMenuItem";
+            this.parametriFiskalizacijeToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.parametriFiskalizacijeToolStripMenuItem.Text = "Parametri fiskalizacije";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -246,85 +334,61 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "label2";
             // 
-            // fiskalizacijaToolStripMenuItem
+            // bazaToolStripMenuItem
             // 
-            this.fiskalizacijaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.parametriFiskalizacijeToolStripMenuItem});
-            this.fiskalizacijaToolStripMenuItem.Name = "fiskalizacijaToolStripMenuItem";
-            this.fiskalizacijaToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
-            this.fiskalizacijaToolStripMenuItem.Text = "Fiskalizacija";
+            this.bazaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.regenerirajToolStripMenuItem,
+            this.napraviKopijuToolStripMenuItem});
+            this.bazaToolStripMenuItem.Name = "bazaToolStripMenuItem";
+            this.bazaToolStripMenuItem.Size = new System.Drawing.Size(93, 20);
+            this.bazaToolStripMenuItem.Text = "Postavke baze";
             // 
-            // parametriFiskalizacijeToolStripMenuItem
+            // regenerirajToolStripMenuItem
             // 
-            this.parametriFiskalizacijeToolStripMenuItem.Name = "parametriFiskalizacijeToolStripMenuItem";
-            this.parametriFiskalizacijeToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
-            this.parametriFiskalizacijeToolStripMenuItem.Text = "Parametri fiskalizacije";
+            this.regenerirajToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.stanjeSkladistaToolStripMenuItem,
+            this.rekreirajPrimkeToolStripMenuItem});
+            this.regenerirajToolStripMenuItem.Name = "regenerirajToolStripMenuItem";
+            this.regenerirajToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.regenerirajToolStripMenuItem.Text = "Regeneriraj";
+            this.regenerirajToolStripMenuItem.Click += new System.EventHandler(this.regenerirajToolStripMenuItem_Click);
             // 
-            // maloprodaja
+            // napraviKopijuToolStripMenuItem
             // 
-            this.maloprodaja.Image = global::Poslovni.Properties.Resources.money_bag;
-            this.maloprodaja.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.maloprodaja.Location = new System.Drawing.Point(19, 35);
-            this.maloprodaja.Name = "maloprodaja";
-            this.maloprodaja.Size = new System.Drawing.Size(106, 98);
-            this.maloprodaja.TabIndex = 2;
-            this.maloprodaja.Text = "Maloprodaja";
-            this.maloprodaja.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.maloprodaja.UseVisualStyleBackColor = true;
-            this.maloprodaja.Click += new System.EventHandler(this.maloprodaja_Click);
+            this.napraviKopijuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.napraviKopijuToolStripMenuItem1,
+            this.ucitajBazuToolStripMenuItem});
+            this.napraviKopijuToolStripMenuItem.Name = "napraviKopijuToolStripMenuItem";
+            this.napraviKopijuToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.napraviKopijuToolStripMenuItem.Text = "Backup";
             // 
-            // button3
+            // stanjeSkladistaToolStripMenuItem
             // 
-            this.button3.Image = global::Poslovni.Properties.Resources.analysis;
-            this.button3.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button3.Location = new System.Drawing.Point(17, 154);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(119, 98);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Pregled skladišta";
-            this.button3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.stanjeSkladistaToolStripMenuItem.Name = "stanjeSkladistaToolStripMenuItem";
+            this.stanjeSkladistaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.stanjeSkladistaToolStripMenuItem.Text = "Stanje skladista";
+            this.stanjeSkladistaToolStripMenuItem.Click += new System.EventHandler(this.stanjeSkladistaToolStripMenuItem_Click);
             // 
-            // kalkulacije
+            // rekreirajPrimkeToolStripMenuItem
             // 
-            this.kalkulacije.Font = new System.Drawing.Font("MS Reference Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.kalkulacije.Image = global::Poslovni.Properties.Resources.agreement;
-            this.kalkulacije.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.kalkulacije.Location = new System.Drawing.Point(17, 34);
-            this.kalkulacije.Name = "kalkulacije";
-            this.kalkulacije.Size = new System.Drawing.Size(119, 98);
-            this.kalkulacije.TabIndex = 0;
-            this.kalkulacije.Text = "Kalkulacije";
-            this.kalkulacije.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.kalkulacije.UseVisualStyleBackColor = true;
-            this.kalkulacije.Click += new System.EventHandler(this.kalkulacije_Click);
+            this.rekreirajPrimkeToolStripMenuItem.Name = "rekreirajPrimkeToolStripMenuItem";
+            this.rekreirajPrimkeToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.rekreirajPrimkeToolStripMenuItem.Text = "Primke (brise sve iz baze)";
+            this.rekreirajPrimkeToolStripMenuItem.Click += new System.EventHandler(this.rekreirajPrimkeToolStripMenuItem_Click);
             // 
-            // zaprimanje
+            // napraviKopijuToolStripMenuItem1
             // 
-            this.zaprimanje.Image = global::Poslovni.Properties.Resources.worker;
-            this.zaprimanje.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.zaprimanje.Location = new System.Drawing.Point(17, 281);
-            this.zaprimanje.Name = "zaprimanje";
-            this.zaprimanje.Size = new System.Drawing.Size(119, 98);
-            this.zaprimanje.TabIndex = 1;
-            this.zaprimanje.Text = "Financije";
-            this.zaprimanje.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.zaprimanje.UseVisualStyleBackColor = true;
-            this.zaprimanje.Click += new System.EventHandler(this.zaprimanje_Click);
+            this.napraviKopijuToolStripMenuItem1.Name = "napraviKopijuToolStripMenuItem1";
+            this.napraviKopijuToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.napraviKopijuToolStripMenuItem1.Text = "Napravi kopiju";
+            this.napraviKopijuToolStripMenuItem1.Click += new System.EventHandler(this.napraviKopijuToolStripMenuItem1_Click);
             // 
-            // button1
+            // ucitajBazuToolStripMenuItem
             // 
-            this.button1.Image = global::Poslovni.Properties.Resources.teamwork;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button1.Location = new System.Drawing.Point(23, 34);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(103, 98);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Korisnici";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.ucitajBazuToolStripMenuItem.Name = "ucitajBazuToolStripMenuItem";
+            this.ucitajBazuToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ucitajBazuToolStripMenuItem.Text = "Ucitaj bazu";
+            this.ucitajBazuToolStripMenuItem.Click += new System.EventHandler(this.ucitajBazuToolStripMenuItem_Click);
             // 
             // Glavni
             // 
@@ -386,5 +450,12 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripMenuItem fiskalizacijaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem parametriFiskalizacijeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bazaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem regenerirajToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem napraviKopijuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stanjeSkladistaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rekreirajPrimkeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem napraviKopijuToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem ucitajBazuToolStripMenuItem;
     }
 }
