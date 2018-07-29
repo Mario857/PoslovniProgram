@@ -4,7 +4,7 @@ Aplikacija PoslovniProgram napravljena po uzoru na [" Vacom Navigator "],
 otvorenog je koda svako može razvijati u svom smjeru (pročitaj LICENCE file)
 
 -------------------------------------------------------------------------------------------------------------------------------
-                                                 Izradio : [ Mario Lučki]
+                                                 Izradio : Mario Lučki
 -------------------------------------------------------------------------------------------------------------------------------
 
 OPIS Aplikacije : 
@@ -23,21 +23,21 @@ Aplikacija se nalazi u "PoslovniProgram-master\Poslovni\bin\Debug\Poslovni.exe"
 
 Može se testirati povezivanjem na navedeni server :
 Podaci MYSQL Servera 
-[
+
   Adresa servera: sql7.freemysqlhosting.net
   Naziv baze : sql7247390
   SQL korisnik: sql7247390
   Lozinka : K2meaRTqkz
   Port : 3306
-]
 
+-------------------------------------------------------------------
 Podaci admina aplikacije
-[
+
   Korisnicko ime : mlucki
   Lozinka : mario1
-]
 
 
+-------------------------------------------------------------------
 Mario Lučki
 
 --------------------------------------------------------------------------------------------------------------------------------
