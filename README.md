@@ -21,9 +21,9 @@ Aplikacija se nalazi u "PoslovniProgram-master\Poslovni\bin\Debug\Poslovni.exe"
 
 -------------------------------------------------------------------------------------------------------------------------------
 
-Može se testirati povezivanjem na navedeni server :
+Može se testirati povezivanjem na server :
+-------------------------------------------------------------------
 Podaci MYSQL Servera 
-
   Adresa servera: sql7.freemysqlhosting.net
   Naziv baze : sql7247390
   SQL korisnik: sql7247390
