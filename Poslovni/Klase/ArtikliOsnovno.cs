@@ -18,7 +18,7 @@ namespace Poslovni.Klase
             opis_artikla = 4,
         }
 
-        public static List<String> GetUneseniArtikli(Zahtjev zahtjev)
+        public static List<Artikl> GetUneseniArtikli()
         {
             List<Artikl> artikl = new List<Artikl>();
             List<String> genericlist = new List<string>();
@@ -43,29 +43,7 @@ namespace Poslovni.Klase
 
                     artikl.Add(new Artikl {sifra = mySqlDataReader.GetInt32("sifra") , naziv = mySqlDataReader.GetString("naziv"),vrsta = mySqlDataReader.GetString("vrsta"), poreza_grupa=mySqlDataReader.GetInt32("porezna_grupa"), opis_artikla = opis_Artikla });
                 }
-                switch (zahtjev)
-                {
-
-                    case Zahtjev.sifra:
-                        genericlist = artikl.Select(x => x.sifra.ToString()).ToList();
-                        break;
-                    case Zahtjev.naziv:
-                        genericlist = artikl.Select(x => x.naziv).ToList();
-                        break;
-                    case Zahtjev.grupa:
-                        genericlist = artikl.Select(x => x.vrsta).ToList();
-                        break;
-                    case Zahtjev.porez:
-                        genericlist = artikl.Select(x => x.poreza_grupa.ToString()).ToList();
-                        break;
-                    case Zahtjev.opis_artikla:
-                        genericlist = artikl.Select(x => x.opis_artikla.ToString()).ToList();
-                        break;
-                    default:
-
-                        break;
-                }
-                 return genericlist;
+                 return artikl;
             }
           
         }

@@ -33,6 +33,10 @@ namespace Poslovni
         List<String> _alltables { get; set; }
         List<String> _godine { get; set; }
 
+
+        List<string> _nekativni_racuni { get; set; } // DODATI
+        List<Artikl> _artikli_racun { get; set; } // DODATI
+
         public void ListAllTables()
         {
             _alltables = new List<string>();
@@ -411,8 +415,11 @@ namespace Poslovni
                             art.sifra = uneseni_art.sifra;
                             art.naziv = uneseni_art.naziv;
                             art.dobavljac = uneseni_art.dobavljac;
-                            art.MPC = uneseni_art.MPC;
-                            art.popust = uneseni_art.popust;
+
+
+
+                            art.MPC = uneseni_art.MPC; // Dodati ako u stanju skladista je druga cijena ispisati nivelaciju
+                            art.popust = uneseni_art.popust; 
 
                             art.vrsta = uneseni_art.vrsta;
                             art.podgrupa = uneseni_art.podgrupa;
@@ -434,6 +441,7 @@ namespace Poslovni
                         }
                         else if (uneseni_art.nab_cijena == 0)
                         {
+                            //Nivelacija/Promjena cijena
                             art.MPC = uneseni_art.MPC;
                             art.popust = uneseni_art.popust;
                         }
@@ -446,9 +454,20 @@ namespace Poslovni
             art.nab_cijena /= j;
             art.nab_vrijednost /= art.kolicina;
 
-            var pdv_artikla = ArtikliOsnovno.GetStopaFromSifra(sifra);
-             art.min_mpc = art.nab_vrijednost * (1 + ((float)pdv_artikla / 100));
             
+
+            
+            var pdv_artikla = ArtikliOsnovno.GetStopaFromSifra(sifra);
+            art.min_mpc = Math.Abs(art.nab_vrijednost * (1 + ((float)pdv_artikla / 100)));
+
+
+            //foreach(Artikl artikl_na_racunu in _nekativni_racuni)
+
+
+
+            if (art.kolicina <= 0)// Kada se skine sa stanja postaviti u 0
+                art.min_mpc = 0;
+
             return art;
         }
 

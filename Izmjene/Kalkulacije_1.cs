@@ -8,10 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AutocompleteMenuNS;
 using MySql.Data.MySqlClient;
 using Poslovni.Klase;
 
-/// <summary>
+  /// <summary>
 /// Autor : Mario Lučki
 /// Datum : 16.7.2018
 /// Kalkulacije predstavljaju glavnu formu za zaprimanje robe, printanje naljepnica, unos, 
@@ -23,7 +24,7 @@ using Poslovni.Klase;
 /// 
 /// 
 /// BUGOVI : 
-/// na KUFU datum i odgoda placanja
+/// 
 /// Nekada dolazi do problema prilikom unosa artikla kada se izade sa edit moda ubaci se celija iznad ali ne svaki puta bug stvara neocekivani izlaz iz edita... trebalo bi rijesiti
 /// </summary>
 
@@ -91,6 +92,9 @@ namespace Poslovni
                             dijeli++;
                     }
                 }
+
+              
+
                 textBox3.Text = osnovica.ToString();
 
             }
@@ -102,6 +106,20 @@ namespace Poslovni
 
             ukupno = pdv + osnovica;
             textBox5.Text = ukupno.ToString();
+
+            Double temp1;
+            if (Double.TryParse(textBox3.Text, out temp1))
+                textBox3.Text = String.Format(System.Globalization.CultureInfo.CurrentCulture, "{0:C2}", temp1);
+
+
+            Double temp2;
+            if (Double.TryParse(textBox4.Text, out temp2))
+                textBox4.Text = String.Format(System.Globalization.CultureInfo.CurrentCulture, "{0:C2}", temp2);
+
+            Double temp3;
+            if (Double.TryParse(textBox5.Text, out temp3))
+                textBox5.Text = String.Format(System.Globalization.CultureInfo.CurrentCulture, "{0:C2}", temp3);
+
 
 
 
@@ -302,9 +320,10 @@ namespace Poslovni
         {
 
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
                 try
                 {
-                    if ((Convert.ToInt32(dataGridView1.Rows[i].Cells[1].Value) == 123456789))
+                    if ((Convert.ToInt32(dataGridView1.Rows[i].Cells[1].Value) == 0))
                     {
                         for (int cells = 3; cells < dataGridView1.ColumnCount; cells++)
                         {
@@ -321,9 +340,17 @@ namespace Poslovni
                 }
 
                 catch { };
+            }
+
+
+            dataGridView1.Columns["grupa"].ReadOnly = true;
             dataGridView1.Columns["id_artikl"].ReadOnly = true;
             dataGridView1.Columns["marza"].ReadOnly = true;
             dataGridView1.Columns["RUC"].ReadOnly = true;
+            dataGridView1.Columns["id"].ReadOnly = true;
+            dataGridView1.Columns["jed_mj"].ReadOnly = true;
+            dataGridView1.Columns["pdv"].ReadOnly = true;
+
         }
         #endregion
 
@@ -365,6 +392,10 @@ namespace Poslovni
             dataGridView1.Columns["marza"].ReadOnly = true;
             dataGridView1.Columns["RUC"].ReadOnly = true;
             dataGridView1.Columns["id"].ReadOnly = true;
+            dataGridView1.Columns["jed_mj"].ReadOnly = true;
+            dataGridView1.Columns["pdv"].ReadOnly = true;
+
+
 
             dataGridView1.Columns["vrijednost"].DefaultCellStyle.Format = "C";
             dataGridView1.Columns["cijena"].DefaultCellStyle.Format = "C";
@@ -382,25 +413,39 @@ namespace Poslovni
         private void dataGridView1_DataError(object sender,
     DataGridViewDataErrorEventArgs e)
         {
+            
             // If the data source raises an exception when a cell value is 
             // commited, display an error message.
-            if (e.Exception != null &&
-                e.Context == DataGridViewDataErrorContexts.Commit)
+            if (e.Exception != null && e.Context == DataGridViewDataErrorContexts.Commit)
             {
+                dataGridView1.CurrentCell.Value = starting_state;
                 MessageBox.Show("Value must be unique.");
             }
         }
 
         #region Postavljanje elementa zaglavlja texboxovi, partneri itd...
 
+
+
         private void PostaviElementeZaglavnja()
         {
-            textBox8.AutoCompleteMode = AutoCompleteMode.Suggest;
-            textBox8.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            AutoCompleteStringCollection col = new AutoCompleteStringCollection();
-            col.AddRange(Klase.Partneri.IzlistajPartnere().ToArray());
-            textBox8.AutoCompleteCustomSource = col;
+            autocompleteMenu1.MaximumSize = new System.Drawing.Size(450, 600);
+            var columnWidth = new int[] { 50, 200,200 };
 
+
+            foreach (Klase.Partner part in Klase.Partneri.IzlistajPartnere().ToArray())
+            {
+               
+                if (autocompleteMenu1.Items.Contains(part.naziv_partnera))
+                {
+                    break;
+                }
+                else {
+                    autocompleteMenu1.AddItem(new MulticolumnAutocompleteItem(new[] { part.id_poslovni_partner.ToString(), part.naziv_partnera,part.oib }, part.naziv_partnera) { ColumnWidth = columnWidth, ImageIndex = 0 });
+
+                }
+              
+            }
 
 
             Primka_zaglavlje.SetIDPrimka(aktivna_kal);
@@ -574,25 +619,11 @@ namespace Poslovni
             }
             catch
             {
-
+                starting_state = "";
             }
         }
         #endregion
 
-        #region Postavljanje indexa liste... ima i boljih nacina,ali ovo je ok
-
-        private int setindextomylist(string e, List<String> a)
-        {
-            for (int i = 0; i < a.Count; i++)
-            {
-                if (a[i] == e)
-                {
-                    return i;
-                }
-            }
-            return 123456789;
-        }
-        #endregion
 
 
         #region Autocomplete na celiji, sugeriraj po nazivi iako bi mozda bilo dobro da se moze i po sifri unositi
@@ -600,7 +631,8 @@ namespace Poslovni
         {
 
             var source = new AutoCompleteStringCollection();
-            source.AddRange(Klase.ArtikliOsnovno.GetUneseniArtikli(Klase.ArtikliOsnovno.Zahtjev.naziv).ToArray());
+            source.Clear();
+            source.AddRange(Klase.ArtikliOsnovno.GetUneseniArtikli().Select(x => x.naziv).ToArray());
 
             if (dataGridView1.CurrentCell.ColumnIndex == 2)
             {
@@ -656,7 +688,8 @@ namespace Poslovni
 
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
         {
-
+            if (e.KeyCode == Keys.Enter)
+                e.SuppressKeyPress = true;
         }
         #region  Racunaje podnozja osnovice,pdv...
         private void Izracunaj()
@@ -696,44 +729,60 @@ namespace Poslovni
             try
             {
 
-                dataGridView1.Rows[e.RowIndex].Cells[1].Value = Klase.ArtikliOsnovno.GetUneseniArtikli(Klase.ArtikliOsnovno.Zahtjev.sifra)[setindextomylist(dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString(), Klase.ArtikliOsnovno.GetUneseniArtikli(Klase.ArtikliOsnovno.Zahtjev.naziv))];
-                dataGridView1.Rows[e.RowIndex].Cells[4].Value = Klase.ArtikliOsnovno.GetUneseniArtikli(Klase.ArtikliOsnovno.Zahtjev.grupa)[setindextomylist(dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString(), Klase.ArtikliOsnovno.GetUneseniArtikli(Klase.ArtikliOsnovno.Zahtjev.naziv))];
-                dataGridView1.Rows[e.RowIndex].Cells[5].Value = Klase.ArtikliOsnovno.GetStopaFromSifra(Convert.ToInt64(dataGridView1.Rows[e.RowIndex].Cells[1].Value));
-                dataGridView1.Rows[e.RowIndex].Cells[6].Value = "kom";
-
-
-            }
-            catch(Exception ex)
-            {
-                dataGridView1.Rows[e.RowIndex].Cells[1].Value = 123456789;
-            }
-            try
-            {
-                if (dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString() == "")
-                    dataGridView1.Rows[e.RowIndex].Cells[3].Value = "0";
-
-            }
-            catch(Exception ex) {
-               
-            };
-
-
-            try
-            {
-
-                if (Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[1].Value) == 123456789)
+                if (dataGridView1.CurrentCell.Value == null)
                 {
+                    if (dataGridView1.CurrentRow.IsNewRow == false)
+                        dataGridView1.Rows.RemoveAt(e.RowIndex);
+                    return;
+                }
+
+                if (dataGridView1.CurrentCell.Value.Equals(System.DBNull.Value))
+                {
+                    if (dataGridView1.CurrentRow.IsNewRow == false)
+                        dataGridView1.Rows.RemoveAt(e.RowIndex);
+                    return;
+                }
+            }
+            catch {
+                if(dataGridView1.CurrentRow.IsNewRow == false)
+                        dataGridView1.Rows.RemoveAt(e.RowIndex);
+                return;
+            }
+    
+
+            Artikl korisnik_unio_artikl = new Artikl();
+
+       
+            korisnik_unio_artikl = Klase.ArtikliOsnovno.GetUneseniArtikli().FirstOrDefault(x => x.naziv == dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString());
+
+
+            if (dataGridView1.Rows[e.RowIndex].Cells[1].Value == null)
+                return;
+
+            dataGridView1.Rows[e.RowIndex].Cells[1].Value = korisnik_unio_artikl.sifra;
+            dataGridView1.Rows[e.RowIndex].Cells[4].Value = korisnik_unio_artikl.vrsta;
+            dataGridView1.Rows[e.RowIndex].Cells[5].Value = Klase.ArtikliOsnovno.GetStopaFromSifra(Convert.ToInt64(dataGridView1.Rows[e.RowIndex].Cells[1].Value));
+            dataGridView1.Rows[e.RowIndex].Cells[6].Value = "kom";
+
+            
+
+                if (korisnik_unio_artikl.sifra == 0)
+                {
+                    dataGridView1.Rows.RemoveAt(e.RowIndex);
+
                     DialogResult dialogResult = MessageBox.Show("Unos artikla", "Stvar ne postoji u bazi\n Unesi artikl u bazu?", MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes)
                     {
                         UnosArtikla unosArtikla = new UnosArtikla();
                         unosArtikla.Show();
                     }
+
+                    return;
                 }
-            }
-            catch { };
-          
-            
+
+            if (dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString() == "")
+                dataGridView1.Rows[e.RowIndex].Cells[3].Value = "0";
+
 
             Izracunaj();
 
@@ -750,17 +799,22 @@ namespace Poslovni
                 }
             }
 
+
+
+
+
+
             try
             {
                 var multipleItems = Sifre.FindAll(x => x.ToString() == dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString()); // This could trow exception if no items
+                
+
 
                 if (multipleItems.Count > 1)
                 {
+                    dataGridView1.Rows.RemoveAt(e.RowIndex);
+
                     MessageBox.Show("Nije dozvoljeno unjeti dva ista artikla!");
-
-                    dataGridView1.Rows[e.RowIndex].Cells[1].Value = 123456789;
-
-                    dataGridView1.Rows[e.RowIndex].Cells[2].Value = "";
 
                     ZaključajCelije();
                 }
@@ -769,20 +823,6 @@ namespace Poslovni
 
             try
             {
-
-                if (Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[1].Value) == 123456789)
-                {
-                    dataGridView1.Rows.RemoveAt(e.RowIndex);
-                }
-            }
-            catch { };
-    
-
-
-
-            try
-            {
-
                 if (dataGridView1.Rows[e.RowIndex].Cells["kolicina"].Value.ToString() != "0" && dataGridView1.Rows[e.RowIndex].Cells["vrijednost"].Value.ToString() != "0" && dataGridView1.Rows[e.RowIndex].Cells["vrijednost"].ColumnIndex == e.ColumnIndex)
                 {
                     dataGridView1.Rows[e.RowIndex].Cells["cijena"].Value = Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells["vrijednost"].Value) / Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["kolicina"].Value);
@@ -790,34 +830,45 @@ namespace Poslovni
                     if (dataGridView1.Rows[e.RowIndex].Cells["MPC"].Value.ToString() != "0")
                     {
                         dataGridView1.Rows[e.RowIndex].Cells["marza"].Value = (1 - ((Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells["cijena"].Value) * (1 + (Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells["pdv"].Value) / 100))) / Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells["MPC"].Value))) * 100;
-                        dataGridView1.Rows[e.RowIndex].Cells["MPC_Popust"].Value = Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells["MPC"].Value) / (1 + (Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells["Popust"].Value) / 100));
                     }
                 }
-                else if (dataGridView1.Rows[e.RowIndex].Cells["kolicina"].Value.ToString() != "0" && dataGridView1.Rows[e.RowIndex].Cells["vrijednost"].Value.ToString() != "0" && dataGridView1.Rows[e.RowIndex].Cells["cijena"].ColumnIndex == e.ColumnIndex)
+
+                if (dataGridView1.Rows[e.RowIndex].Cells["kolicina"].Value.ToString() != "0" && dataGridView1.Rows[e.RowIndex].Cells["vrijednost"].Value.ToString() != "0" && dataGridView1.Rows[e.RowIndex].Cells["cijena"].ColumnIndex == e.ColumnIndex)
                 {
                     dataGridView1.Rows[e.RowIndex].Cells["vrijednost"].Value = Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells["cijena"].Value) * Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["kolicina"].Value);
                     if (dataGridView1.Rows[e.RowIndex].Cells["MPC"].Value.ToString() != "0")
                     {
                         dataGridView1.Rows[e.RowIndex].Cells["marza"].Value = (1 - ((Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells["cijena"].Value) * (1 + (Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells["pdv"].Value) / 100))) / Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells["MPC"].Value))) * 100;
-                        dataGridView1.Rows[e.RowIndex].Cells["MPC_Popust"].Value = Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells["MPC"].Value) / (1 + (Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells["Popust"].Value) / 100));
                     }
                 }
-                else if (dataGridView1.Rows[e.RowIndex].Cells["kolicina"].Value.ToString() != "0" && dataGridView1.Rows[e.RowIndex].Cells["vrijednost"].Value.ToString() != "0" && dataGridView1.Rows[e.RowIndex].Cells["kolicina"].ColumnIndex == e.ColumnIndex)
+                if (dataGridView1.Rows[e.RowIndex].Cells["kolicina"].Value.ToString() != "0" && dataGridView1.Rows[e.RowIndex].Cells["vrijednost"].Value.ToString() != "0" && dataGridView1.Rows[e.RowIndex].Cells["kolicina"].ColumnIndex == e.ColumnIndex)
                     dataGridView1.Rows[e.RowIndex].Cells["vrijednost"].Value = Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells["cijena"].Value) * Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["kolicina"].Value);
-                else if (dataGridView1.Rows[e.RowIndex].Cells["kolicina"].Value.ToString() != "0" && dataGridView1.Rows[e.RowIndex].Cells["vrijednost"].Value.ToString() != "0" && dataGridView1.Rows[e.RowIndex].Cells["MPC"].Value.ToString() != "0")
+
+                if (dataGridView1.Rows[e.RowIndex].Cells["MPC"].Value.ToString() != "0" && dataGridView1.Rows[e.RowIndex].Cells["MPC"].ColumnIndex == e.ColumnIndex)
                 {
-                    dataGridView1.Rows[e.RowIndex].Cells["marza"].Value = (1 - ((Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells["cijena"].Value) * (1 + (Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells["pdv"].Value) / 100))) / Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells["MPC"].Value))) * 100;
                     dataGridView1.Rows[e.RowIndex].Cells["MPC_Popust"].Value = Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells["MPC"].Value) / (1 + (Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells["Popust"].Value) / 100));
                 }
+
+                if (dataGridView1.Rows[e.RowIndex].Cells["MPC_Popust"].Value.ToString() != "0" && dataGridView1.Rows[e.RowIndex].Cells["MPC_Popust"].ColumnIndex == e.ColumnIndex )
+                {
+                    dataGridView1.Rows[e.RowIndex].Cells["MPC"].Value = Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells["MPC_Popust"].Value) * (1 + (Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells["Popust"].Value) / 100));
+                }
+
+                if (dataGridView1.Rows[e.RowIndex].Cells["MPC_Popust"].Value.ToString() != "0" && dataGridView1.Rows[e.RowIndex].Cells["Popust"].ColumnIndex == e.ColumnIndex)
+                {
+                    dataGridView1.Rows[e.RowIndex].Cells["MPC_Popust"].Value = Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells["MPC"].Value) / (1 + (Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells["Popust"].Value) / 100));
+                }
+
+
+                if (dataGridView1.Rows[e.RowIndex].Cells["MPC"].Value.ToString() != "0")
+                {
+                    dataGridView1.Rows[e.RowIndex].Cells["marza"].Value = (1 - ((Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells["cijena"].Value) * (1 + (Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells["pdv"].Value) / 100))) / Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells["MPC"].Value))) * 100;
+                }
             }
-
-
-
-            //else if (dataGridView1.Rows[e.RowIndex].Cells["kolicina"].Value.ToString() != "0" && dataGridView1.Rows[e.RowIndex].Cells["vrijednost"].Value.ToString() != "0" && dataGridView1.Rows[e.RowIndex].Cells["vrijednost"].ColumnIndex == e.ColumnIndex)
-            //    dataGridView1.Rows[e.RowIndex].Cells["cijena"].Value = Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells["vrijednost"].Value) / Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["kolicina"].Value);
-
-
             catch { };
+
+
+          
             SinkronizirajPrimku(aktivna_kal);
 
            
@@ -828,9 +879,11 @@ namespace Poslovni
 
         private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-
-            Reconstruction(e);
+          
+                Reconstruction(e);
            
+
+
         }
         #region Ne koristi se u aplikaciji jos
         private void tabControl2_KeyDown(object sender, KeyEventArgs e)
@@ -847,12 +900,18 @@ namespace Poslovni
         #region Pritiskom na tipku enter prodi kroz stavke (pojednostavi unos) iako ovo stvara odredene probleme treba nekada ugasiti zato sto drugi elementi ne mogu pristupiti tipkovnici
 
         bool isAllowedtoSkip = true;
+        int lastcolumnsupress = 0;
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             // Check if Enter is pressed
 
             if (keyData == Keys.Enter && forcestop == false)
             {
+              
+
+                if (dataGridView1.IsCurrentCellInEditMode)
+                    dataGridView1.EndEdit();
 
                 // If there isn't any selected row, do nothing
                 if (dataGridView1.CurrentRow == null)
@@ -867,14 +926,29 @@ namespace Poslovni
 
                     int newRow = 0;
                     int newColumn = 0;
+                   
+
                     if (dataGridView1.CurrentCell.ColumnIndex == dataGridView1.ColumnCount - 1)         // it's a last column, move to next row;
                     {
+                        if (dataGridView1.IsCurrentCellInEditMode == false)
+                            lastcolumnsupress++;
+                        else
+                            lastcolumnsupress = 2;
 
-                        newRow = dataGridView1.CurrentCell.RowIndex + 1;
-                        newColumn = 2;
 
-                        if (newRow == dataGridView1.RowCount)
+                        if (lastcolumnsupress == 2)
+                        {
+                            newRow = dataGridView1.CurrentCell.RowIndex + 1;
+                            newColumn = 2;
+
+                            lastcolumnsupress = 0;
+
+                            if (newRow == dataGridView1.RowCount)
+                                return false;
+                        }
+                        else {
                             return false;
+                        }
                     }
                     else
                     {
@@ -895,13 +969,13 @@ namespace Poslovni
                                 newColumn = dataGridView1.CurrentCell.ColumnIndex + 1;
                                 break;
                         }
-
-
-
-
                     }
 
-                    dataGridView1.CurrentCell = dataGridView1.Rows[newRow].Cells[newColumn];
+                    if (dataGridView1.IsCurrentCellDirty == false)
+                        dataGridView1.CurrentCell = dataGridView1.Rows[newRow].Cells[newColumn];
+                    else {
+                        MessageBox.Show("Pogrešan unos!");
+                    }
 
                 }
 
@@ -1380,7 +1454,6 @@ namespace Poslovni
             {
             };
 
-            dataGridView1.EndEdit();
             forcestop = false;
         }
 
@@ -1429,38 +1502,22 @@ namespace Poslovni
 
         private void textBox8_Leave(object sender, EventArgs e)
         {
-            string search = textBox8.Text;
-            string result;
             try
             {
-                result = Klase.Partneri.IzlistajPartnere().Single(s => s == search);
+                textBox8.Text = Klase.Partneri.PronaciPartneraKojiPripada(textBox8.Text);
             }
             catch
             {
-                result = "";
-            }
-
-
-            if (result == "")
-            {
                 textBox8.Text = "Nepoznati dobavljač";
             }
-            else
-            {
-                textBox8.Text = result;
 
-            }
         }
         #endregion
 
         #region Fokusiranje kada se pritisne tipka enter na textboxovima
         private void textBox8_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Down)
-            {
 
-                textBox2.Focus();
-            }
         }
 
         private void textBox2_KeyDown(object sender, KeyEventArgs e)

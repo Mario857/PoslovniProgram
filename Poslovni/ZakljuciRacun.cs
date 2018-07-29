@@ -27,6 +27,22 @@ namespace Poslovni
         {
             panel1.Enabled = true;
             otp_partneru_naziv.Enabled = false;
+            
+        }
+
+        private void zakljuci_racun_button_Click(object sender, EventArgs e)
+        {
+            Klase.NacinPlacanja np = (Klase.NacinPlacanja)0;
+            Klase.Racuni.ZakljuciRacun(np); // Dodati vrijednosti R1 racun, nacin placanja itd
+
+
+
+
+            var MALFORM = Application.OpenForms.OfType<Maloprodaja>().Single();
+            MALFORM.ZakljuciRacun(); // Osvjezi stavke
+
+
+            this.Close();
         }
     }
 }

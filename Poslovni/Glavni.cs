@@ -78,8 +78,17 @@ namespace Poslovni
 
         private void zaprimanje_Click(object sender, EventArgs e)
         {
-            
-            
+            //foreach (Form f in Application.OpenForms)
+            //{
+            //    if (f is Kalkulacije)
+            //    {
+            //        f.Focus();
+            //        return;
+            //    }
+            //}
+
+            //new Kalkulacije().Show();
+
         }
 
         private void kalkulacije_Click(object sender, EventArgs e)
@@ -251,6 +260,19 @@ namespace Poslovni
         private void sinkronizirajToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            foreach (Form f in Application.OpenForms)
+            {
+                if (f is UnosPartnera)
+                {
+                    f.Focus();
+                    return;
+                }
+            }
+            new UnosPartnera().Show();
         }
     }
 }

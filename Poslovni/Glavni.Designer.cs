@@ -29,17 +29,8 @@
         private void InitializeComponent()
         {
             this.Admin = new System.Windows.Forms.GroupBox();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.papirologija = new System.Windows.Forms.GroupBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.kalkulacije = new System.Windows.Forms.Button();
-            this.zaprimanje = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.maloprodaja = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.zaprimanjeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.unosArtiklaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,9 +51,18 @@
             this.napraviKopijuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.napraviKopijuToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ucitajBazuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sinkronizirajToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.sinkronizirajToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.maloprodaja = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.kalkulacije = new System.Windows.Forms.Button();
+            this.zaprimanje = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.Admin.SuspendLayout();
             this.papirologija.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -83,39 +83,6 @@
             this.Admin.Text = " Administracija";
             this.Admin.Visible = false;
             // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(23, 281);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(103, 98);
-            this.button6.TabIndex = 2;
-            this.button6.Text = "Otpremnice";
-            this.button6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button6.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(23, 154);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(103, 98);
-            this.button5.TabIndex = 1;
-            this.button5.Text = "Partneri";
-            this.button5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Image = global::Poslovni.Properties.Resources.teamwork;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button1.Location = new System.Drawing.Point(23, 34);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(103, 98);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Korisnici";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // papirologija
             // 
             this.papirologija.Controls.Add(this.button3);
@@ -129,46 +96,6 @@
             this.papirologija.TabStop = false;
             this.papirologija.Text = "Skladišno poslovanje";
             // 
-            // button3
-            // 
-            this.button3.Image = global::Poslovni.Properties.Resources.analysis;
-            this.button3.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button3.Location = new System.Drawing.Point(17, 154);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(119, 98);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Pregled skladišta";
-            this.button3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // kalkulacije
-            // 
-            this.kalkulacije.Font = new System.Drawing.Font("MS Reference Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.kalkulacije.Image = global::Poslovni.Properties.Resources.agreement;
-            this.kalkulacije.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.kalkulacije.Location = new System.Drawing.Point(17, 34);
-            this.kalkulacije.Name = "kalkulacije";
-            this.kalkulacije.Size = new System.Drawing.Size(119, 98);
-            this.kalkulacije.TabIndex = 0;
-            this.kalkulacije.Text = "Kalkulacije";
-            this.kalkulacije.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.kalkulacije.UseVisualStyleBackColor = true;
-            this.kalkulacije.Click += new System.EventHandler(this.kalkulacije_Click);
-            // 
-            // zaprimanje
-            // 
-            this.zaprimanje.Image = global::Poslovni.Properties.Resources.worker;
-            this.zaprimanje.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.zaprimanje.Location = new System.Drawing.Point(17, 281);
-            this.zaprimanje.Name = "zaprimanje";
-            this.zaprimanje.Size = new System.Drawing.Size(119, 98);
-            this.zaprimanje.TabIndex = 1;
-            this.zaprimanje.Text = "Financije";
-            this.zaprimanje.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.zaprimanje.UseVisualStyleBackColor = true;
-            this.zaprimanje.Click += new System.EventHandler(this.zaprimanje_Click);
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.button4);
@@ -181,40 +108,6 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Maloprodaja";
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(19, 280);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(106, 98);
-            this.button4.TabIndex = 4;
-            this.button4.Text = "Odjave komisije";
-            this.button4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(19, 153);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(106, 98);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Pregled prodaje";
-            this.button2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
-            // 
-            // maloprodaja
-            // 
-            this.maloprodaja.Image = global::Poslovni.Properties.Resources.money_bag;
-            this.maloprodaja.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.maloprodaja.Location = new System.Drawing.Point(19, 35);
-            this.maloprodaja.Name = "maloprodaja";
-            this.maloprodaja.Size = new System.Drawing.Size(106, 98);
-            this.maloprodaja.TabIndex = 2;
-            this.maloprodaja.Text = "Maloprodaja";
-            this.maloprodaja.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.maloprodaja.UseVisualStyleBackColor = true;
-            this.maloprodaja.Click += new System.EventHandler(this.maloprodaja_Click);
             // 
             // menuStrip1
             // 
@@ -333,7 +226,7 @@
             this.stanjeSkladistaToolStripMenuItem,
             this.rekreirajPrimkeToolStripMenuItem});
             this.regenerirajToolStripMenuItem.Name = "regenerirajToolStripMenuItem";
-            this.regenerirajToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.regenerirajToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.regenerirajToolStripMenuItem.Text = "Regeneriraj";
             this.regenerirajToolStripMenuItem.Click += new System.EventHandler(this.regenerirajToolStripMenuItem_Click);
             // 
@@ -357,22 +250,29 @@
             this.napraviKopijuToolStripMenuItem1,
             this.ucitajBazuToolStripMenuItem});
             this.napraviKopijuToolStripMenuItem.Name = "napraviKopijuToolStripMenuItem";
-            this.napraviKopijuToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.napraviKopijuToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.napraviKopijuToolStripMenuItem.Text = "Backup";
             // 
             // napraviKopijuToolStripMenuItem1
             // 
             this.napraviKopijuToolStripMenuItem1.Name = "napraviKopijuToolStripMenuItem1";
-            this.napraviKopijuToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.napraviKopijuToolStripMenuItem1.Size = new System.Drawing.Size(151, 22);
             this.napraviKopijuToolStripMenuItem1.Text = "Napravi kopiju";
             this.napraviKopijuToolStripMenuItem1.Click += new System.EventHandler(this.napraviKopijuToolStripMenuItem1_Click);
             // 
             // ucitajBazuToolStripMenuItem
             // 
             this.ucitajBazuToolStripMenuItem.Name = "ucitajBazuToolStripMenuItem";
-            this.ucitajBazuToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ucitajBazuToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.ucitajBazuToolStripMenuItem.Text = "Ucitaj bazu";
             this.ucitajBazuToolStripMenuItem.Click += new System.EventHandler(this.ucitajBazuToolStripMenuItem_Click);
+            // 
+            // sinkronizirajToolStripMenuItem
+            // 
+            this.sinkronizirajToolStripMenuItem.Name = "sinkronizirajToolStripMenuItem";
+            this.sinkronizirajToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.sinkronizirajToolStripMenuItem.Text = "Sinkroniziraj";
+            this.sinkronizirajToolStripMenuItem.Click += new System.EventHandler(this.sinkronizirajToolStripMenuItem_Click);
             // 
             // label1
             // 
@@ -392,12 +292,119 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "label2";
             // 
-            // sinkronizirajToolStripMenuItem
+            // button4
             // 
-            this.sinkronizirajToolStripMenuItem.Name = "sinkronizirajToolStripMenuItem";
-            this.sinkronizirajToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.sinkronizirajToolStripMenuItem.Text = "Sinkroniziraj";
-            this.sinkronizirajToolStripMenuItem.Click += new System.EventHandler(this.sinkronizirajToolStripMenuItem_Click);
+            this.button4.Image = global::Poslovni.Properties.Resources.store;
+            this.button4.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.button4.Location = new System.Drawing.Point(19, 280);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(106, 98);
+            this.button4.TabIndex = 4;
+            this.button4.Text = "Izuzece";
+            this.button4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Image = global::Poslovni.Properties.Resources.transaction__1_;
+            this.button2.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.button2.Location = new System.Drawing.Point(19, 153);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(106, 98);
+            this.button2.TabIndex = 3;
+            this.button2.Text = "Pregled prodaje";
+            this.button2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
+            // maloprodaja
+            // 
+            this.maloprodaja.Image = global::Poslovni.Properties.Resources.money_bag;
+            this.maloprodaja.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.maloprodaja.Location = new System.Drawing.Point(19, 35);
+            this.maloprodaja.Name = "maloprodaja";
+            this.maloprodaja.Size = new System.Drawing.Size(106, 98);
+            this.maloprodaja.TabIndex = 2;
+            this.maloprodaja.Text = "Maloprodaja";
+            this.maloprodaja.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.maloprodaja.UseVisualStyleBackColor = true;
+            this.maloprodaja.Click += new System.EventHandler(this.maloprodaja_Click);
+            // 
+            // button3
+            // 
+            this.button3.Image = global::Poslovni.Properties.Resources.analysis;
+            this.button3.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.button3.Location = new System.Drawing.Point(17, 154);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(119, 98);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "Pregled skladišta";
+            this.button3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // kalkulacije
+            // 
+            this.kalkulacije.Font = new System.Drawing.Font("MS Reference Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.kalkulacije.Image = global::Poslovni.Properties.Resources.agreement;
+            this.kalkulacije.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.kalkulacije.Location = new System.Drawing.Point(17, 34);
+            this.kalkulacije.Name = "kalkulacije";
+            this.kalkulacije.Size = new System.Drawing.Size(119, 98);
+            this.kalkulacije.TabIndex = 0;
+            this.kalkulacije.Text = "Kalkulacije";
+            this.kalkulacije.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.kalkulacije.UseVisualStyleBackColor = true;
+            this.kalkulacije.Click += new System.EventHandler(this.kalkulacije_Click);
+            // 
+            // zaprimanje
+            // 
+            this.zaprimanje.Image = global::Poslovni.Properties.Resources.worker;
+            this.zaprimanje.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.zaprimanje.Location = new System.Drawing.Point(17, 281);
+            this.zaprimanje.Name = "zaprimanje";
+            this.zaprimanje.Size = new System.Drawing.Size(119, 98);
+            this.zaprimanje.TabIndex = 1;
+            this.zaprimanje.Text = "Financije";
+            this.zaprimanje.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.zaprimanje.UseVisualStyleBackColor = true;
+            this.zaprimanje.Click += new System.EventHandler(this.zaprimanje_Click);
+            // 
+            // button6
+            // 
+            this.button6.Image = global::Poslovni.Properties.Resources.shipping;
+            this.button6.Location = new System.Drawing.Point(23, 281);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(103, 98);
+            this.button6.TabIndex = 2;
+            this.button6.Text = "Otpremnice";
+            this.button6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button6.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            this.button5.Image = global::Poslovni.Properties.Resources.rating;
+            this.button5.Location = new System.Drawing.Point(23, 154);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(103, 98);
+            this.button5.TabIndex = 1;
+            this.button5.Text = "Partneri";
+            this.button5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button1
+            // 
+            this.button1.Image = global::Poslovni.Properties.Resources.teamwork;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.button1.Location = new System.Drawing.Point(23, 34);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(103, 98);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Korisnici";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Glavni
             // 

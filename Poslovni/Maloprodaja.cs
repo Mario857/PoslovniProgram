@@ -18,11 +18,14 @@ namespace Poslovni
         {
             InitializeComponent();
         }
-        private void SikronizirajListuRacuna(string datum) {
-            racuni.Sinkroniziraj();
+        public void ZakljuciRacun() {
+            SikronizirajListuRacuna(dateTimePicker1.Value.ToString("dd.M.yyyy"));
+        }
+        public void SikronizirajListuRacuna(string datum) {
+            Klase.Racuni.Sinkroniziraj();
             listBox1.Items.Clear();
 
-            foreach (Klase.Racun r in racuni.GetRacuni()) {
+            foreach (Klase.Racun r in Klase.Racuni.GetRacuni()) {
                 if(r.datum_racuna == datum)
                     listBox1.Items.Add(r.id_racun);
             }
@@ -65,11 +68,10 @@ namespace Poslovni
         private void Button1_Click(object sender, EventArgs e)
         {
             dateTimePicker1.Value = DateTime.UtcNow.Date;
-            racuni.AddRacun();
+            Klase.Racuni.AddRacun();
             dateTimePicker1_CloseUp("", e);
         }
-
-
+   
 
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -82,7 +84,7 @@ namespace Poslovni
 
         }
         private void ZakljucajCelije() {
-            dataGridView1.ReadOnly = !racuni.ProvjeriAktivnost(Convert.ToInt32(listBox1.SelectedItem) - 1);
+            dataGridView1.ReadOnly = !Klase.Racuni.ProvjeriAktivnost(Convert.ToInt32(listBox1.SelectedItem) - 1);
 
         }
 
@@ -95,6 +97,7 @@ namespace Poslovni
             dataGridView1.Columns["sifra"].ValueType = typeof(long);
             dataGridView1.Columns["naziv"].HeaderText = "Naziv artikla";
             dataGridView1.Columns["MPC_popust"].HeaderText = "Popust";
+            dataGridView1.Columns["MPC_popust"].ValueType = typeof(float);
             dataGridView1.Columns["MPC_Prodano"].HeaderText = "MPC";
 
             for (int j = 0; j < dataGridView1.ColumnCount; j++)
@@ -195,7 +198,8 @@ namespace Poslovni
         }
         private void DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-          
+
+     
 
 
 
@@ -209,7 +213,7 @@ namespace Poslovni
 
 
 
-            if (e.ColumnIndex == 1)     // if editing sifra
+            if (e.ColumnIndex == dataGridView1.Columns["sifra"].Index)     // if editing sifra
             {
 
                 bool hasValue = stanjeSkladista.TryGetValue(Convert.ToString(dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value), out value);
@@ -232,7 +236,7 @@ namespace Poslovni
 
             }
 
-            else if (e.ColumnIndex == 2)    // if editing naziv
+            else if (e.ColumnIndex == dataGridView1.Columns["naziv"].Index)    // if editing naziv
             {
 
                     var prividnasifra = stanjeSkladista.Where(ar => ar.Value.naziv.ToUpper() == Convert.ToString(dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value).ToUpper()).ToList();
@@ -259,25 +263,36 @@ namespace Poslovni
                     }
             }
 
-            else if (e.ColumnIndex == 3)
+            else if (e.ColumnIndex == dataGridView1.Columns["kolicina"].Index)
             {
                 if (dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() == "")
                 {
                     dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = 1;
                 }
             }
-            else if (e.ColumnIndex == 4) {
+            else if (e.ColumnIndex == dataGridView1.Columns["MPC_popust"].Index) {
                 if (dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() == "")
                 {
                     dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = 0;
                 }
+
+             
+                var MPC_N = stanjeSkladista[Convert.ToString(dataGridView1.Rows[e.RowIndex].Cells[1].Value)].MPC;
+                var Popust = Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+
+                dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex + 1].Value = (1 - (Popust / 100)) * MPC_N;
             }
-            else if (e.ColumnIndex == 5)
+            else if (e.ColumnIndex == dataGridView1.Columns["MPC_Prodano"].Index)
             {
                 if (dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() == "")
                 {
                     dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = stanjeSkladista[Convert.ToString(dataGridView1.Rows[e.RowIndex].Cells[1].Value)].MPC;
                 }
+                var MPC_P = Convert.ToSingle(dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                var MPC_N = stanjeSkladista[Convert.ToString(dataGridView1.Rows[e.RowIndex].Cells[1].Value)].MPC;
+
+                dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value = (float)((-100 * MPC_P / MPC_N) + 100);
+
             }
 
 
@@ -306,7 +321,7 @@ namespace Poslovni
         {
             // Check if Enter is pressed
 
-            if (keyData == Keys.Enter && dataGridView1.IsCurrentCellInEditMode == false)
+            if (keyData == Keys.Enter)
             {
 
                 // If there isn't any selected row, do nothing
@@ -324,7 +339,7 @@ namespace Poslovni
                     {
 
                         newRow = dataGridView1.CurrentCell.RowIndex + 1;
-                        newColumn = 2;
+                        newColumn = 1;
 
                         if (newRow == dataGridView1.RowCount)
                             return false;
@@ -333,21 +348,17 @@ namespace Poslovni
                     {
                         newRow = dataGridView1.CurrentCell.RowIndex;
 
-                        switch (dataGridView1.CurrentCell.ColumnIndex)
-                        {
-                            default:
-                                newColumn = dataGridView1.CurrentCell.ColumnIndex + 1;
-                                break;
-                        }
+                        
+                        newColumn = dataGridView1.CurrentCell.ColumnIndex + 1;
+                              
+                        
 
 
+               
 
+                    }
 
-                    
-
-                    dataGridView1.CurrentCell = dataGridView1.Rows[newRow].Cells[newColumn];
-
-                }
+                dataGridView1.CurrentCell = dataGridView1.Rows[newRow].Cells[newColumn];
 
                 return true;
             }
@@ -376,7 +387,7 @@ namespace Poslovni
         private void SikronizirajStavkeRacuna()
         {
 
-            if (racuni.ProvjeriAktivnost(Convert.ToInt32(listBox1.SelectedItem ) - 1) == true)
+            if (Klase.Racuni.ProvjeriAktivnost(Convert.ToInt32(listBox1.SelectedItem ) - 1) == true)
             { // ONLY DELETE DATA FROM TABLES IF ACTIVE OTHERWISE JUST READ
                 using (MySqlConnection sqlconn = new MySqlConnection(Login.constring))
                 {
@@ -480,13 +491,20 @@ namespace Poslovni
             e.DrawBackground();
 
 
-            if (racuni.ProvjeriAktivnost(Convert.ToInt16(listBox1.Items[e.Index].ToString()) - 1))
+            if (Klase.Racuni.ProvjeriAktivnost(Convert.ToInt16(listBox1.Items[e.Index].ToString()) - 1))
                 e.Graphics.DrawString(listBox1.Items[e.Index].ToString(), e.Font, new SolidBrush(Color.Red), e.Bounds, StringFormat.GenericDefault);
             else
                 e.Graphics.DrawString(listBox1.Items[e.Index].ToString(), e.Font, new SolidBrush(Color.Black), e.Bounds, StringFormat.GenericDefault);
 
 
             e.DrawFocusRectangle();
+
+            Func<int, int> func = (x => x * x);
+
+            var p =  func(5); // Returns 25
+
+            
+
         }
 
 
@@ -508,7 +526,7 @@ namespace Poslovni
                 ukupno = 0.00M;
             }
 
-            label1.Text = ukupno + " Kn";
+            label1.Text = String.Format("{0:c2}", ukupno);
         }
 
         private void izbrisiTekućiToolStripMenuItem_Click(object sender, EventArgs e)
@@ -517,9 +535,9 @@ namespace Poslovni
 
             if (brojItemaUracunu.HasValue && dateTimePicker1.Value.Date == DateTime.UtcNow.Date)
             {
-                if ((listBox1.SelectedIndex == brojItemaUracunu) && !racuni.ProvjeriAktivnost(listBox1.SelectedIndex)) // Dodati provjeru aktivnosti
+                if (listBox1.SelectedIndex == brojItemaUracunu)
                 {
-                    racuni.IzbrisiTekuci();
+                    Klase.Racuni.IzbrisiTekuci();
                     dataGridView1.DataSource = null;
                     SikronizirajListuRacuna(dateTimePicker1.Value.ToString("dd.M.yyyy"));
                 }
@@ -528,6 +546,13 @@ namespace Poslovni
                     MessageBox.Show("Nije moguce brisanje");
                 }
             }  
+        }
+
+        private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) {
+                e.SuppressKeyPress = true;
+            }
         }
     }
 }

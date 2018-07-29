@@ -166,9 +166,9 @@ namespace Poslovni
 
             AutoCompleteStringCollection autoCompletepartneri = new AutoCompleteStringCollection();
 
-            foreach (string s in Klase.Partneri.IzlistajPartnere())
+            foreach (Klase.Partner s in Klase.Partneri.IzlistajPartnere())
             {
-                autoCompletepartneri.Add(s);
+                autoCompletepartneri.Add(s.naziv_partnera);
 
             }
 
@@ -312,8 +312,11 @@ namespace Poslovni
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e) // Postavi opis artikla u podnozje
         {
-            var sifre_artikla = ArtikliOsnovno.GetUneseniArtikli(ArtikliOsnovno.Zahtjev.sifra);
-            var opisi_artikla = ArtikliOsnovno.GetUneseniArtikli(ArtikliOsnovno.Zahtjev.opis_artikla);
+            //  var sifre_artikla = ArtikliOsnovno.GetUneseniArtikli(ArtikliOsnovno.Zahtjev.sifra);
+            var sifre_artikla = ArtikliOsnovno.GetUneseniArtikli().Select(x => x.sifra).ToList();
+
+            //  var opisi_artikla = ArtikliOsnovno.GetUneseniArtikli(ArtikliOsnovno.Zahtjev.opis_artikla);
+            var opisi_artikla = ArtikliOsnovno.GetUneseniArtikli().Select(x => x.opis_artikla).ToList();
 
             for (int i = 0; i < sifre_artikla.Count; i++)
             {
