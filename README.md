@@ -1,11 +1,10 @@
 # PoslovniProgram
 
-Aplikacija PoslovniProgram napravljena po uzoru na ["Vacom Navigator"],
-otvorenog koda je svako može razvijati u svom smjeru (pročitaj LICENCE file)
+Aplikacija PoslovniProgram napravljena po uzoru na [" Vacom Navigator "],
+otvorenog je koda svako može razvijati u svom smjeru (pročitaj LICENCE file)
 
 -------------------------------------------------------------------------------------------------------------------------------
                                                  Izradio : [ Mario Lučki]
-------------------------------------------------                         ------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------
 
 OPIS Aplikacije : 
@@ -41,3 +40,4 @@ Podaci admina aplikacije
 
 Mario Lučki
 
+--------------------------------------------------------------------------------------------------------------------------------
