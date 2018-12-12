@@ -1,13 +1,16 @@
 # PoslovniProgram
 
-Aplikacija PoslovniProgram napravljena po uzoru na [" Vacom Navigator "],
-otvorenog je koda svako može razvijati u svom smjeru (pročitaj LICENCE file)
+Aplikacija PoslovniProgram
+otvorenog je koda svako može razvijati u svom smjeru (pročitaj LICENCE file) ma da ne preporucam jer je struktura losa
 
 -------------------------------------------------------------------------------------------------------------------------------
                                                  Izradio : Mario Lučki
 -------------------------------------------------------------------------------------------------------------------------------
 
 OPIS Aplikacije : 
+Struktura programa je uzas :)
+
+Racunanje bi trebao handlati server zato sto ce biti uzasno sporo na ovaj nacin...
 
 Aplikacija je u izradi, sadrži osnovne stvari za vodenje maloprodaje, zaprimanje robe (primke) dodavanje racuna u KUF... 
 rad s bazom podataka (mysql), iako ovo nije baš najbolja opcija što se tice brzine, možda kasnije prebacim na lokalnu bazu 
@@ -19,25 +22,4 @@ izmjenu stanja artikla kada se proda...
 
 Aplikacija se nalazi u "PoslovniProgram-master\Poslovni\bin\Debug\Poslovni.exe"
 
--------------------------------------------------------------------------------------------------------------------------------
-
-Može se testirati povezivanjem na server :
--------------------------------------------------------------------
-Podaci MYSQL Servera 
-  Adresa servera: sql7.freemysqlhosting.net
-  Naziv baze : sql7247390
-  SQL korisnik: sql7247390
-  Lozinka : K2meaRTqkz
-  Port : 3306
-
--------------------------------------------------------------------
-Podaci admina aplikacije
-
-  Korisnicko ime : mlucki
-  Lozinka : mario1
-
-
--------------------------------------------------------------------
-Mario Lučki
-
---------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------
